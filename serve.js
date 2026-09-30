@@ -1,8 +1,8 @@
 /* Local dev server for the CocoLab site. No dependencies.
-   Run:  node serve.js   (or: npm start)   then open http://localhost:4173
+   Run:  node serve.js   (or: npm start)   then open http://localhost:6000
    Clean URLs work: /cocoroute -> cocoroute.html, / -> index.html */
 var http=require('http'),fs=require('fs'),path=require('path');
-var PORT=process.env.PORT||4173, ROOT=__dirname;
+var PORT=process.env.PORT||6000, ROOT=__dirname;
 var TYPES={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.ico':'image/x-icon','.json':'application/json','.webmanifest':'application/manifest+json'};
 http.createServer(function(req,res){
   var url=decodeURIComponent(req.url.split('?')[0].split('#')[0]);
