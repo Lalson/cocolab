@@ -9,7 +9,7 @@ Plain HTML, CSS and JavaScript. No framework, no build step for the home page.
 npm start          # or: node serve.js
 ```
 
-Then open http://localhost:6000. Clean URLs work: `/cocoroute`, `/cocomio`, `/cocotrado`.
+Then open http://localhost:5000. Clean URLs work: `/cocoroute`, `/cocomio`, `/cocotrado`.
 Any static host (Netlify, Vercel, GitHub Pages, nginx) can serve the folder as it is.
 
 ## Files
