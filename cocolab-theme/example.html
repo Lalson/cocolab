@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CocoLab theme · example</title>
+<meta name="description" content="Every component of the CocoLab theme on one page.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="cocolab-theme.css">
+</head>
+<body>
+
+<!-- Logos, drawn once and reused with <svg><use href="#logo-route"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="mioGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#58cc02"/><stop offset="1" stop-color="#46a302"/></linearGradient>
+    <symbol id="logo-route" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#1C7ED6"/><circle cx="256" cy="256" r="186" fill="#F2EFE9"/><path d="M244 211 A67 67 0 1 0 244 301" fill="none" stroke="#1C7ED6" stroke-width="44" stroke-linecap="round"/><path d="M322 310 L322 194 L348 194 A36 36 0 0 1 348 266 L322 266 M345 265 L384 305" fill="none" stroke="#1C7ED6" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="logo-mio" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="url(#mioGrad)"/><g transform="translate(256 268) scale(3.05) translate(-60 -62)"><path d="M60 22 C48 6 30 6 22 14 C36 12 48 18 56 26 Z" fill="#d7ffb8" stroke="#46a302" stroke-width="2"/><path d="M60 22 C72 6 90 6 98 14 C84 12 72 18 64 26 Z" fill="#d7ffb8" stroke="#46a302" stroke-width="2"/><circle cx="60" cy="70" r="44" fill="#8a5a3b" stroke="#6f4527" stroke-width="3"/><ellipse cx="60" cy="76" rx="32" ry="28" fill="#f7e7c8"/><circle cx="49" cy="72" r="5.5" fill="#3c3c3c"/><circle cx="71" cy="72" r="5.5" fill="#3c3c3c"/><circle cx="50.8" cy="70" r="1.8" fill="#fff"/><circle cx="72.8" cy="70" r="1.8" fill="#fff"/><path d="M50 84 q10 10 20 0" stroke="#6f4527" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="40" cy="82" rx="5" ry="3.4" fill="#ffb3a7" opacity=".85"/><ellipse cx="80" cy="82" rx="5" ry="3.4" fill="#ffb3a7" opacity=".85"/></g></symbol>
+    <symbol id="logo-trado" viewBox="0 0 30 30"><rect width="30" height="30" rx="8.4" fill="#6B3FE0"/><circle cx="15" cy="13.5" r="6.5" fill="none" stroke="#fff" stroke-width="1.4"/><ellipse cx="15" cy="13.5" rx="2.8" ry="6.5" fill="none" stroke="#fff" stroke-width="1.1"/><path d="M8.5 13.5h13" fill="none" stroke="#fff" stroke-width="1.1"/><path d="M6 23.5c3.5-3.6 14.5-3.6 18 0" fill="none" stroke="#FFB020" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- 1. Header: brand, menu, day/night switch, dark call-to-action -->
+<header class="site-head">
+  <div class="progress" aria-hidden="true"><i></i></div>
+  <div class="wrap">
+    <div class="head-row">
+      <a class="brand" href="#top"><span class="brand-mark"><span></span></span>CocoLab</a>
+      <nav class="nav" aria-label="Main">
+        <a href="#products">Products</a>
+        <a href="#how">How it works</a>
+        <a href="#compare">Compare</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="head-cta">
+        <button class="daynight" type="button" role="switch" aria-checked="false" aria-label="Night mode">
+          <span class="dn-track">
+            <span class="dn-cloud" aria-hidden="true"></span>
+            <span class="dn-star s1" aria-hidden="true"></span><span class="dn-star s2" aria-hidden="true"></span><span class="dn-star s3" aria-hidden="true"></span>
+            <span class="dn-knob" aria-hidden="true"><span class="dn-crater c1"></span><span class="dn-crater c2"></span></span>
+          </span>
+        </button>
+        <a class="btn btn-dark" href="#contact">Book a demo</a>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile" hidden>
+      <a href="#products">Products</a><a href="#how">How it works</a><a href="#compare">Compare</a>
+      <a class="btn btn-dark" href="#contact">Book a demo</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 2. Hero: fills the first screen; sky, sun/moon, floating logos, rotating headline, tiles -->
+  <div class="first-screen">
+    <div class="sky" aria-hidden="true">
+      <span class="sun"></span><span class="moon"></span>
+      <i class="tw t1"></i><i class="tw t2"></i><i class="tw t3"></i><i class="tw t4"></i><i class="tw t5"></i><i class="tw t6"></i>
+    </div>
+
+    <section class="wrap hero">
+      <a class="float" style="left:4%;top:110px;--r:-8deg" href="#products" aria-label="CocoRoute"><svg class="logo" width="64" height="64" aria-hidden="true"><use href="#logo-route"/></svg></a>
+      <a class="float" style="right:5%;top:250px;--r:7deg;animation-delay:.8s,.7s" href="#products" aria-label="CocoTrado"><svg class="logo" width="58" height="58" aria-hidden="true"><use href="#logo-trado"/></svg></a>
+      <a class="float" style="left:calc(50% - 30px);top:6px;--r:5deg;animation-delay:1.6s,.9s" href="#products" aria-label="CocoMio"><svg class="logo" width="60" height="60" aria-hidden="true"><use href="#logo-mio"/></svg></a>
+      <span class="pill pop">CocoLab · Software made in the UAE</span>
+      <h1 data-rotate="People. Money. *Freight.*|Less admin. More *done.*|Pick one, or use them *all.*"><span class="w" style="--d:0">Three</span> <span class="w" style="--d:1">products.</span> <span class="w" style="--d:2">One</span> <span class="w hl" style="--d:3">team.</span></h1>
+      <p class="rise">What would make your day lighter? Each product is separate, with its own website. Pick the one that fits, or use all three.</p>
+    </section>
+
+    <div class="wrap" id="products">
+      <section class="tiles" aria-label="Our products">
+        <div class="tile" data-accent="route" data-reveal style="--i:0"
+             data-features='[["Freight pipeline","Every enquiry moves from first contact to won business, in one view."],["Quick quotes","Build a quote from freight, origin and destination charges in minutes."],["Follow-up reminders","A nudge when a quote has waited too long for a reply."]]'>
+          <div class="tile-head"><svg class="logo" width="56" height="56" aria-hidden="true"><use href="#logo-route"/></svg><span class="nm"><b>CocoRoute</b><span>CRM FOR FREIGHT FORWARDERS</span></span></div>
+          <p>For forwarding sales and operations teams: enquiries, quotes and customers in one place.</p>
+          <a class="tile-foot" href="#how"><span class="t-acc">Learn more</span><span>Full page →</span></a>
+        </div>
+        <div class="tile" data-accent="mio" data-reveal style="--i:1"
+             data-features='[["Punch clock","Employees punch in from their phone, inside the office geofence."],["Leave requests","Ask, approve and see the balance, without a single email."],["Career ladder","Everyone sees where they are now and what comes next."]]'>
+          <div class="tile-head"><svg class="logo" width="56" height="56" aria-hidden="true"><use href="#logo-mio"/></svg><span class="nm"><b>CocoMio</b><span>HR &amp; LEARNING APP</span></span></div>
+          <p>For HR teams and employees: attendance, leave, learning and career growth.</p>
+          <a class="tile-foot" href="#how"><span class="t-acc">Learn more</span><span>Full page →</span></a>
+        </div>
+        <div class="tile" data-accent="trado" data-reveal style="--i:2"
+             data-features='[["Balance per currency","Each client has one ledger per currency, always up to date."],["Two-signature payments","No money leaves without two named people approving it."],["Client statements","A clean statement, ready to send, whenever a client asks."]]'>
+          <div class="tile-head"><svg class="logo" width="56" height="56" aria-hidden="true"><use href="#logo-trado"/></svg><span class="nm"><b>CocoTrado</b><span>TRADING ACCOUNTS</span></span></div>
+          <p>For buying agents who hold client money: one ledger per currency, clean statements.</p>
+          <a class="tile-foot" href="#how"><span class="t-acc">Learn more</span><span>Full page →</span></a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 3. A day timeline on a full-width pale band, in one product's colour -->
+  <section class="sec alt" id="how" data-accent="route">
+    <div class="wrap">
+      <div class="sec-h" data-reveal>
+        <span class="eyebrow">A day with CocoRoute</span>
+        <h2>From the first message to the end of the day</h2>
+        <p>One ordinary working day, step by step.</p>
+      </div>
+      <div class="day">
+        <div class="step" data-reveal><span class="t">09:05</span><span class="dotm" aria-hidden="true"></span><div class="cardm"><b>An enquiry arrives</b><p>By WhatsApp: 2 × 40ft, Jebel Ali to Mombasa. Added in thirty seconds.</p></div></div>
+        <div class="step flip" data-reveal><span class="t">09:20</span><span class="dotm" aria-hidden="true"></span><div class="cardm"><b>Quote sent</b><p>Built from last month's quote on the same lane.</p></div></div>
+        <div class="step" data-reveal><span class="t">15:40</span><span class="dotm" aria-hidden="true"></span><div class="cardm"><b>Won</b><p>The card moves to Won. Operations finds everything they need.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Feature cards (press to open), in another product's colour -->
+  <section class="sec" data-accent="trado">
+    <div class="wrap">
+      <div class="sec-h" data-reveal>
+        <span class="eyebrow">Features</span>
+        <h2>What CocoTrado does</h2>
+        <p>Press a card to read how it works and who it is for.</p>
+      </div>
+      <div class="feat-grid">
+        <button class="feat" type="button" data-reveal style="--i:0"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4.5a2 2 0 010 4H10a2 2 0 000 4h5"/></svg></span><h3>Balance per currency</h3><span class="short">One ledger per client, per currency.</span><span class="more">Every movement is added, never rewritten, so the balance can always be proven.</span><span class="hint">How it works ↓</span></button>
+        <button class="feat" type="button" data-reveal style="--i:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l4-4 3 3 7-7"/><path d="M14 9h4v4"/></svg></span><h3>Two signatures</h3><span class="short">No payment leaves on one person's say.</span><span class="more">The maker prepares it, a named approver releases it. Both are on record.</span><span class="hint">How it works ↓</span></button>
+        <button class="feat" type="button" data-reveal style="--i:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><h3>Clean statements</h3><span class="short">Ready to send whenever a client asks.</span><span class="more">Opening balance, every movement and closing balance, in the client's currency.</span><span class="hint">How it works ↓</span></button>
+        <button class="feat" type="button" data-reveal style="--i:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7.5-7 9-4-1.5-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Compliance checks</h3><span class="short">KYC checked before money moves.</span><span class="more">Expired documents block a payment until someone renews them.</span><span class="hint">How it works ↓</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Comparison table -->
+  <section class="wrap section" id="compare">
+    <div class="section-head" data-reveal>
+      <h2>At a glance</h2>
+      <p>Separate products for different jobs. Here is how they compare.</p>
+    </div>
+    <div class="table-scroll" data-reveal>
+      <table>
+        <thead><tr><th scope="col"><span class="sr-only">Question</span></th><th scope="col" class="bg-acc" data-accent="route">CocoRoute</th><th scope="col" class="bg-acc" data-accent="mio">CocoMio</th><th scope="col" class="bg-acc" data-accent="trado">CocoTrado</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">What it is</th><td>CRM for freight forwarding</td><td>HR &amp; learning app</td><td>Trading-account software</td></tr>
+          <tr><th scope="row">Who it's for</th><td>Sales and operations teams</td><td>HR teams and every employee</td><td>Buying agents and their finance team</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. Values: each card takes a product tint -->
+  <section class="wrap section">
+    <div class="values">
+      <div class="value" data-accent="route" data-reveal><h3>Records you can trust</h3><p>History is added to, never rewritten.</p></div>
+      <div class="value" data-accent="trado" data-reveal style="--i:1"><h3>A person approves</h3><p>Software suggests. A named person decides.</p></div>
+      <div class="value" data-accent="mio" data-reveal style="--i:2"><h3>Your data stays yours</h3><p>Each company's data is kept apart.</p></div>
+    </div>
+  </section>
+
+  <!-- 7. FAQ -->
+  <section class="wrap section" data-accent="mio">
+    <div class="sec-h" data-reveal><span class="eyebrow">Questions</span><h2>What people ask before they start</h2></div>
+    <div class="faq">
+      <details><summary>Do I have to buy all three?<span class="pm" aria-hidden="true">+</span></summary><div class="ans">No. Each product works on its own. Use one, or all three.</div></details>
+      <details><summary>Does it work on a phone?<span class="pm" aria-hidden="true">+</span></summary><div class="ans">Yes. Every screen is built for phones first.</div></details>
+    </div>
+  </section>
+
+  <!-- 8. Call-to-action band -->
+  <section class="wrap section" data-accent="route">
+    <div class="cta-band" data-reveal>
+      <span class="blob" aria-hidden="true"></span>
+      <div><h2>See it with your own work in it.</h2><p>A thirty-minute demo, on your data if you like. No slides.</p></div>
+      <a class="btn btn-dark" href="#contact">Book a demo</a>
+    </div>
+  </section>
+
+  <!-- 9. Contact card and form -->
+  <section class="wrap section" id="contact" data-accent="route">
+    <div class="contact" data-reveal>
+      <div class="contact-lead">
+        <h2>Not sure which one? Ask us.</h2>
+        <p>Tell us a little about your business. We'll set up a short demo.</p>
+        <p class="small">Dubai, United Arab Emirates</p>
+      </div>
+      <form id="demoForm" novalidate>
+        <div class="field"><label for="f-name">Your name</label><input id="f-name" autocomplete="name" required></div>
+        <div class="field"><label for="f-email">Work email</label><input id="f-email" type="email" autocomplete="email" required></div>
+        <div class="field full"><label for="f-msg">What would you like to see?</label><textarea id="f-msg"></textarea></div>
+        <div class="form-foot">
+          <button class="btn btn-acc" type="submit">Request a demo</button>
+          <span class="confetti" aria-hidden="true"></span>
+          <span class="form-status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <a class="brand" href="#top" style="font-size:22px"><span class="brand-mark" style="width:34px;height:34px"><span style="width:14px;height:14px"></span></span>CocoLab</a>
+    <div class="foot-links"><a href="#products">Products</a><a href="#compare">Compare</a><a href="#contact">Contact</a></div>
+    <span>© 2026 CocoLab</span>
+  </div>
+</footer>
+
+<script src="cocolab-theme.js"></script>
+<script>
+  // Example only: check the form, then celebrate. Connect a real endpoint before launch.
+  document.getElementById('demoForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=e.target, status=f.querySelector('.form-status'), name=f.querySelector('#f-name'), email=f.querySelector('#f-email');
+    status.classList.remove('ok');
+    if(!name.value.trim()){status.textContent='Add your name so we know who to reply to.';name.focus();return;}
+    if(!email.value.trim()||!email.checkValidity()){status.textContent='Add a work email we can reply to.';email.focus();return;}
+    status.classList.add('ok'); status.textContent='Thanks, '+name.value.trim().split(' ')[0]+'. This example does not send anything.';
+    CocoTheme.confetti(f.querySelector('.confetti'));
+  });
+</script>
+</body>
+</html>
