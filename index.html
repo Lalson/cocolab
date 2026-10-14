@@ -187,24 +187,27 @@ thead th:first-child{background:var(--panel)}
 .value h3{font-size:22px}
 .value p{font-size:15px;color:var(--muted)}
 
-/* Contact */
-.contact{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;background:var(--night);color:#fff;border-radius:40px;padding:48px}
+/* Contact: the card's colours are the --c-* tokens, with a night set below */
+.contact{--c-bg:linear-gradient(135deg,#E3F4FF,#F1ECFF);--c-sub:var(--muted);--c-chip:rgba(255,255,255,.75);--c-edge:#CBE0F5;--c-ok:var(--mio-text);
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;background:var(--c-bg);color:var(--ink);border-radius:40px;padding:48px}
+:root[data-theme="dark"] .contact{--c-bg:linear-gradient(135deg,#17233A,#231A3B);--c-chip:rgba(255,255,255,.08);--c-edge:rgba(255,255,255,.14);--c-ok:#FFD27A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .contact{--c-bg:linear-gradient(135deg,#17233A,#231A3B);--c-chip:rgba(255,255,255,.08);--c-edge:rgba(255,255,255,.14);--c-ok:#FFD27A}}
 .contact h2{font-size:clamp(34px,3.8vw,48px)}
 .contact-lead{display:flex;flex-direction:column;gap:16px}
-.contact-lead p{color:var(--night-sub)}
+.contact-lead p{color:var(--c-sub)}
 .email-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.email-row code{font-family:var(--body);font-weight:800;font-size:18px;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.1);user-select:all}
-.copy-btn{min-height:44px;padding:0 16px;border-radius:14px;border:2px solid rgba(255,255,255,.3);background:transparent;color:#fff;font:700 15px var(--body);cursor:pointer}
+.email-row code{font-family:var(--body);font-weight:800;font-size:18px;padding:10px 14px;border-radius:14px;background:var(--c-chip);user-select:all}
+.copy-btn{min-height:44px;padding:0 16px;border-radius:14px;border:2px solid var(--c-edge);background:transparent;color:inherit;font:700 15px var(--body);cursor:pointer}
 form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .field{display:flex;flex-direction:column;gap:6px}
 .field.full{grid-column:1 / -1}
-label{font-weight:700;font-size:14px;color:var(--night-sub)}
-input,select,textarea{font:500 16px var(--body);color:#2A2438;background:#fff;border:2px solid transparent;border-radius:14px;padding:12px 14px;min-height:48px;width:100%}
+label{font-weight:700;font-size:14px;color:var(--c-sub)}
+input,select,textarea{font:500 16px var(--body);color:#2A2438;background:#fff;border:2px solid var(--c-edge);border-radius:14px;padding:12px 14px;min-height:48px;width:100%}
 textarea{min-height:120px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--route)}
 .form-foot{grid-column:1 / -1;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.form-status{font-size:15px;color:var(--night-sub)}
-.form-status.ok{color:#FFD27A}
+.form-status{font-size:15px;color:var(--c-sub)}
+.form-status.ok{color:var(--c-ok)}
 
 .site-foot{padding-block:48px 40px;margin-top:88px;border-top:2px solid var(--line)}
 .foot-row{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:15px}
@@ -275,9 +278,10 @@ body{transition:background-color .6s ease,color .6s ease}
 .daynight:hover .dn-knob{filter:brightness(1.05)}
 .daynight:active .dn-knob{width:38px}
 
-/* hero sky */
-.hero{position:relative;isolation:isolate}
-.sky{position:absolute;inset:-40px calc(var(--gutter) * -1) 0;z-index:-1;border-radius:0 0 60px 60px;background:linear-gradient(180deg,var(--sky-a),var(--sky-b));transition:background .6s ease;overflow:hidden}
+/* hero sky: fills the first screen under the 81px sticky header, behind the headline and the product tiles */
+.first-screen{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 81px)}
+.hero{position:relative}
+.sky{position:absolute;inset:-40px calc(50% - 50vw) 0;z-index:-1;background:linear-gradient(180deg,var(--sky-a),var(--sky-b));transition:background .6s ease;overflow:hidden}
 .sun,.moon{position:absolute;right:12%;top:60px;width:84px;height:84px;border-radius:99px;transition:transform 1s var(--spring),opacity .6s ease}
 .sun{background:#FFC83D;box-shadow:0 0 0 14px rgba(255,200,61,.22),0 0 0 30px rgba(255,200,61,.1);animation:spin 18s linear infinite}
 .moon{background:#EDE9F7;box-shadow:inset -14px -8px 0 #C9C3DD,0 0 40px rgba(237,233,247,.25);transform:translateY(220px);opacity:0}
@@ -291,8 +295,15 @@ body{transition:background-color .6s ease,color .6s ease}
 .tw.t2{animation-delay:.4s!important}.tw.t3{animation-delay:.9s!important}.tw.t4{animation-delay:1.3s!important}.tw.t5{animation-delay:.2s!important}.tw.t6{animation-delay:1.7s!important}
 
 /* hero words bounce in, floating logos bob */
-.hero h1 .w{display:inline-block;animation:dropIn .9s var(--bounce) both;animation-delay:calc(var(--d) * .12s + .1s)}
-.hero h1 .hl{background:linear-gradient(transparent 80%,rgba(255,176,32,.45) 80%, rgba(255,176,32,.45) 92%, transparent 92%);border-radius:6px;padding-inline:4px}
+.hero h1 .w{display:inline-block;animation:dropIn .9s var(--bounce) both;animation-delay:calc(var(--d) * .12s + var(--d0, .1s))}
+.hero h1 .hl{background:linear-gradient(transparent 80%,rgba(255,176,32,.45) 80%, rgba(255,176,32,.45) 92%, transparent 92%) no-repeat;background-size:100% 100%;border-radius:6px;padding-inline:4px}
+.hero h1 .w.hl{animation:dropIn .9s var(--bounce) both,hlDraw .5s ease both;animation-delay:calc(var(--d) * .12s + var(--d0, .1s)),calc(var(--d) * .12s + var(--d0, .1s) + .6s)}
+/* Rotating headline: all lines share one grid cell, so the heading keeps the height of the tallest */
+.hero h1.rotating{display:grid}
+.hero h1.rotating .line{grid-area:1 / 1;align-self:center;visibility:hidden}
+.hero h1.rotating .line.is-on,.hero h1.rotating .line.is-out{visibility:visible}
+.hero h1.rotating .line:not(.is-on) .w{animation:none}
+.hero h1.rotating .line.is-out .w{animation:dropOut .45s ease-in both;animation-delay:calc(var(--d) * .05s)}
 .pop{animation:popIn .6s var(--bounce) both}
 .rise{animation:rise .7s ease both .6s}
 .float{position:absolute;display:block;border-radius:20px;filter:drop-shadow(0 14px 18px var(--shadow));animation:bob 4s ease-in-out infinite, popIn .7s var(--bounce) backwards}
@@ -332,6 +343,8 @@ body{transition:background-color .6s ease,color .6s ease}
 .confetti i{position:absolute;left:0;top:0;width:10px;height:14px;border-radius:3px;animation:burst 1.1s cubic-bezier(.2,.7,.3,1) forwards}
 
 @keyframes dropIn{0%{opacity:0;transform:translateY(-80px) rotate(-6deg)}60%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes dropOut{60%{opacity:0}100%{opacity:0;transform:translateY(36px) rotate(5deg)}}
+@keyframes hlDraw{from{background-size:0 100%}}
 @keyframes popIn{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:scale(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-12px) rotate(calc(var(--r,0deg) * -1))}}
@@ -345,7 +358,7 @@ body{transition:background-color .6s ease,color .6s ease}
 @media (max-width: 960px){
   .float{display:none}
   .sun,.moon{width:56px;height:56px;right:8%;top:20px}
-  .sky{inset:-24px 0 0;border-radius:0 0 36px 36px}
+  .sky{inset:-24px calc(50% - 50vw) 0}
 }
 @media (prefers-reduced-motion: reduce){
   .reveal-armed [data-reveal]:not(.in){opacity:1;transform:none}
@@ -501,16 +514,18 @@ body{transition:background-color .6s ease,color .6s ease}
   "PRODUCT 2 OF 4" labels, left/right alternation of the timeline, and the tile layout.
 -->
 
+  <div class="first-screen">
+  <div class="sky" aria-hidden="true">
+    <span class="sun"></span><span class="moon"></span>
+    <i class="tw t1"></i><i class="tw t2"></i><i class="tw t3"></i><i class="tw t4"></i><i class="tw t5"></i><i class="tw t6"></i>
+  </div>
+
   <section class="wrap hero">
-    <div class="sky" aria-hidden="true">
-      <span class="sun"></span><span class="moon"></span>
-      <i class="tw t1"></i><i class="tw t2"></i><i class="tw t3"></i><i class="tw t4"></i><i class="tw t5"></i><i class="tw t6"></i>
-    </div>
     <a class="float f1" href="#route" aria-label="Jump to CocoRoute"><svg class="logo" width="64" height="64" aria-hidden="true"><use href="#logo-route"/></svg></a>
     <a class="float f2" href="#trado" aria-label="Jump to CocoTrado"><svg class="logo" width="58" height="58" aria-hidden="true"><use href="#logo-trado"/></svg></a>
     <a class="float f3" href="#mio" aria-label="Jump to CocoMio"><svg class="logo" width="60" height="60" aria-hidden="true"><use href="#logo-mio"/></svg></a>
-    <span class="pill pop">CocoLab · Software made in the UAE</span>
-    <h1 aria-label="Three products. One team." data-count-label><span class="w" style="--d:0" data-count="word">Three</span> <span class="w" style="--d:1">products.</span> <span class="w" style="--d:2">One</span> <span class="w hl" style="--d:3">team.</span></h1>
+    <span class="pill pop">CocoLab · An EU software company</span>
+    <h1 aria-label="Three products. One team." data-count-label data-rotate="People. Money. *Freight.*|Less admin. More *done.*|Pick one, or use them *all.*|Simple software. Serious *work.*|Goodbye, messy *spreadsheets.*|Made for real *working days.*"><span class="w" style="--d:0" data-count="word">Three</span> <span class="w" style="--d:1">products.</span> <span class="w" style="--d:2">One</span> <span class="w hl" style="--d:3">team.</span></h1>
     <p class="rise">What would make your day lighter? Each product below is separate, with its own website. Pick the one that fits, or use all <span data-count="lower">three</span>.</p>
   </section>
 
@@ -536,6 +551,7 @@ body{transition:background-color .6s ease,color .6s ease}
         <a class="tile-foot" href="cocotrado.html"><span class="t-trado">Learn more</span><span>Full page →</span></a>
       </div>
           </section>
+  </div>
   </div>
 
   <div class="wrap">
@@ -721,7 +737,7 @@ body{transition:background-color .6s ease,color .6s ease}
       <div data-reveal class="about-lead">
         <span class="pill" style="align-self:flex-start">About CocoLab</span>
         <h2 id="about-h"><span data-count="word">Three</span> products, one careful team behind them.</h2>
-        <p>CocoLab is a small software team in Dubai. We build products for work that has to be right: the freight business, people's attendance and careers, and clients' money.</p>
+        <p>CocoLab Intelligence OÜ is registered in Estonia, with its team in India and a partner office in Dubai. We build products for work that has to be right: the freight business, people's attendance and careers, and clients' money.</p>
       </div>
       <div class="values">
         <div data-reveal class="value bg-route"><h3>Records you can trust</h3><p>History is added to, never rewritten. Corrections stay visible.</p></div>
@@ -736,8 +752,8 @@ body{transition:background-color .6s ease,color .6s ease}
       <div class="contact-lead">
         <h2 id="contact-h">Not sure which one? Ask us.</h2>
         <p>Tell us a little about your business and which product you're curious about. We'll set up a short demo.</p>
-        <div class="email-row"><code id="emailText">hello@cocolab.example</code><button class="copy-btn" id="copyEmail" type="button">Copy email</button></div>
-        <p class="small" style="color:var(--night-sub)">Dubai, United Arab Emirates</p>
+        <div class="email-row"><code id="emailText">hello@cocoroute.co</code><button class="copy-btn" id="copyEmail" type="button">Copy email</button></div>
+        <p class="small">CocoLab Intelligence OÜ · Registered in Estonia (EU)<br>Team in India · Partner office in Dubai</p>
       </div>
       <form id="demoForm" novalidate>
         <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
@@ -752,6 +768,7 @@ body{transition:background-color .6s ease,color .6s ease}
           <span class="confetti" id="confetti" aria-hidden="true"></span>
           <span class="form-status" id="formStatus" role="status" aria-live="polite"></span>
         </div>
+        <p class="small" style="grid-column:1 / -1;color:var(--c-sub)">We use your details only to reply to you and arrange the demo. See our <a href="privacy.html" style="font-weight:700;text-decoration:underline">privacy notice</a>.</p>
       </form>
     </div>
   </section>
@@ -764,9 +781,11 @@ body{transition:background-color .6s ease,color .6s ease}
       <a href="cocoroute.html">CocoRoute</a>
       <a href="cocomio.html">CocoMio</a>
       <a href="cocotrado.html">CocoTrado</a>
+      <a href="privacy.html">Privacy</a>
     </div>
     <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-      <span>© 2026 CocoLab · Dubai, UAE</span>
+      <!-- Add " · Registry code XXXXXXXX" once registered; the product pages take it from COMPANY in build-products.js -->
+      <span>© 2026 CocoLab Intelligence OÜ · Registered in Estonia</span>
     </div>
   </div>
 </footer>
@@ -876,6 +895,46 @@ body{transition:background-color .6s ease,color .6s ease}
     }
   }
 
+
+  // Rotating headline: the original line first, then the data-rotate lines in shuffled order
+  // (*word* gets the underline). Pauses on hover, off screen and in hidden tabs; off with reduced motion.
+  (function(){
+    var h1=document.querySelector('.hero h1[data-rotate]'); if(!h1||still)return;
+    var first=document.createElement('span'); first.className='line is-on';
+    while(h1.firstChild)first.appendChild(h1.firstChild);
+    h1.appendChild(first);
+    var lines=[first];
+    h1.getAttribute('data-rotate').split('|').forEach(function(txt){
+      var line=document.createElement('span'); line.className='line'; line.setAttribute('aria-hidden','true');
+      (txt.trim().match(/\*[^*]+\*|\S+/g)||[]).forEach(function(tok,i){
+        if(i)line.appendChild(document.createTextNode(' '));
+        var w=document.createElement('span'); w.className=tok.charAt(0)==='*'?'w hl':'w';
+        w.style.setProperty('--d',i); w.textContent=tok.replace(/\*/g,'');
+        line.appendChild(w);
+      });
+      h1.appendChild(line); lines.push(line);
+    });
+    h1.classList.add('rotating');
+    var at=0, bag=[], paused=false, inView=true;
+    function pick(){
+      if(!bag.length){
+        for(var i=0;i<lines.length;i++)if(i!==at)bag.push(i);
+        for(var j=bag.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1)),t=bag[j];bag[j]=bag[k];bag[k]=t;}
+      }
+      return bag.shift();
+    }
+    function swap(){
+      var cur=lines[at], next=pick(), nl=lines[next];
+      cur.classList.remove('is-on'); cur.classList.add('is-out');
+      setTimeout(function(){cur.classList.remove('is-out');},900);
+      nl.style.setProperty('--d0','.35s'); nl.classList.add('is-on');
+      at=next;
+    }
+    h1.addEventListener('mouseenter',function(){paused=true;});
+    h1.addEventListener('mouseleave',function(){paused=false;});
+    if('IntersectionObserver' in window)new IntersectionObserver(function(en){inView=en[0].isIntersecting;}).observe(h1);
+    setInterval(function(){if(!paused&&inView&&!document.hidden)swap();},4500);
+  })();
 
   // Feature sliders: dots, auto-advance, swipe and arrow keys
   document.querySelectorAll('[data-slider]').forEach(function(sl){

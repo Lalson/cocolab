@@ -18,10 +18,17 @@ Any static host (Netlify, Vercel, GitHub Pages, nginx) can serve the folder as i
 |---|---|
 | `index.html` | The home page. Self-contained: its CSS and JS are inside it. |
 | `cocoroute.html`, `cocomio.html`, `cocotrado.html` | The product pages. **Generated.** Do not edit by hand. |
+| `privacy.html` | The website's privacy notice. **Generated** by `build-products.js`; edit the text there. |
 | `products-data.js` | All the content of the product pages, in one place. |
 | `build-products.js` | Builds the product pages from the data: `npm run build`. |
 | `product.css`, `product.js` | Styling and behaviour shared by the product pages. |
 | `serve.js` | The local dev server. |
+
+## Company details
+
+The legal entity is **CocoLab Intelligence OÜ** (Estonia); the brand is CocoLab. Its details live in `COMPANY` at the top of
+`build-products.js` (product pages and the privacy notice) and in the footer and contact section of `index.html`.
+When the registry code and registered address arrive, fill them in both places and run `npm run build`.
 
 ## Change a product page
 

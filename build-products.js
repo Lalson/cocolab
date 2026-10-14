@@ -1,8 +1,12 @@
-/* Builds cocoroute.html, cocomio.html and cocotrado.html from products-data.js.
+/* Builds cocoroute.html, cocomio.html, cocotrado.html and privacy.html from products-data.js.
    Run:  node build-products.js
    The pages are static HTML (good for search engines); product.js only adds the menus, theme and animations. */
 var fs=require('fs');
 var D=require('./products-data.js'),PRODUCTS=D.PRODUCTS,ORDER=D.ORDER;
+
+/* The legal entity behind the CocoLab brand. Fill in the registry code and address once the
+   Estonian Business Register has registered the company; the footer of index.html says the same. */
+var COMPANY={legal:'CocoLab Intelligence OÜ',country:'Estonia',registry:'',address:'',email:'hello@cocoroute.co'};
 var words=['zero','one','two','three','four','five','six','seven','eight','nine','ten'];
 var countWord=words[ORDER.length]||String(ORDER.length);
 var IC={
@@ -59,6 +63,7 @@ function fileFor(k){return 'coco'+k+'.html';}
 var SYMBOLS=fs.readFileSync('index.html','utf8').match(/<svg width="0" height="0"[\s\S]*?<\/svg>/)[0];
 
 function header(k){
+  var demoHref=k?'index.html?demo='+PRODUCTS[k].name+'#contact':'index.html#contact';
   return '<header class="site-head" id="top"><div class="wrap"><div class="head-row">'+
    '<a class="brand" href="index.html" aria-label="CocoLab home"><span class="brand-mark"><span></span></span>CocoLab</a>'+
    '<nav class="nav" aria-label="Main"><div class="nav-products">'+
@@ -68,18 +73,18 @@ function header(k){
     '<div class="menu-foot"><span>Not sure which fits?</span><a href="index.html#compare">Compare all '+countWord+' →</a></div></div></div>'+
     '<a href="index.html#compare">Compare</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></nav>'+
    '<div class="head-cta"><button class="daynight" id="themeBtn" type="button" role="switch" aria-checked="false" aria-label="Night mode"><span class="dn-track"><span class="dn-cloud" aria-hidden="true"></span><span class="dn-star s1" aria-hidden="true"></span><span class="dn-star s2" aria-hidden="true"></span><span class="dn-star s3" aria-hidden="true"></span><span class="dn-knob" aria-hidden="true"><span class="dn-crater c1"></span><span class="dn-crater c2"></span></span></span></button>'+
-   '<a class="btn btn-dark" href="index.html?demo='+PRODUCTS[k].name+'#contact">Book a demo</a>'+
+   '<a class="btn btn-dark" href="'+demoHref+'">Book a demo</a>'+
    '<button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div>'+
    '<nav class="mobile-nav" id="mobileNav" aria-label="Mobile" hidden>'+
     ORDER.map(function(o){var q=PRODUCTS[o];return '<a class="m-prod" href="'+fileFor(o)+'">'+logo(o,36)+'<span>'+q.name+'<small>'+nice(q.tag)+'</small></span></a>';}).join('')+
-    '<a href="index.html#compare">Compare the '+countWord+'</a><a href="index.html#about">About CocoLab</a><a class="btn btn-dark" href="index.html?demo='+PRODUCTS[k].name+'#contact">Book a demo</a></nav>'+
+    '<a href="index.html#compare">Compare the '+countWord+'</a><a href="index.html#about">About CocoLab</a><a class="btn btn-dark" href="'+demoHref+'">Book a demo</a></nav>'+
   '</div></header>';
 }
 function footer(){
   return '<footer class="site-foot"><div class="wrap foot-row">'+
    '<a class="brand" href="index.html" style="font-size:22px"><span class="brand-mark" style="width:34px;height:34px"><span style="width:14px;height:14px"></span></span>CocoLab</a>'+
-   '<div class="foot-links">'+ORDER.map(function(o){return '<a href="'+fileFor(o)+'">'+PRODUCTS[o].name+'</a>';}).join('')+'</div>'+
-   '<span>© 2026 CocoLab · Dubai, UAE</span></div></footer>';
+   '<div class="foot-links">'+ORDER.map(function(o){return '<a href="'+fileFor(o)+'">'+PRODUCTS[o].name+'</a>';}).join('')+'<a href="privacy.html">Privacy</a></div>'+
+   '<span>© 2026 '+COMPANY.legal+' · Registered in '+COMPANY.country+(COMPANY.registry?' · Registry code '+COMPANY.registry:'')+'</span></div></footer>';
 }
 
 function main(k){
@@ -134,3 +139,33 @@ function document(k){
 }
 
 ORDER.forEach(function(k){fs.writeFileSync(fileFor(k),document(k));console.log('wrote',fileFor(k));});
+
+/* Privacy notice for this website (GDPR applies: the company is registered in the EU).
+   A draft in plain words; have it checked before launch. The products have their own notices. */
+function privacy(){
+  var who=COMPANY.legal+', a private limited company registered in '+COMPANY.country+' (EU)'+
+    (COMPANY.registry?', registry code '+COMPANY.registry:'')+(COMPANY.address?', '+COMPANY.address:'')+'.';
+  var parts=[
+    ['Who we are','<p>'+who+' CocoLab is our brand. Write to us at <a href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a> about anything on this page.</p>'],
+    ['What this notice covers','<p>This website only. CocoRoute, CocoMio and CocoTrado each keep their own terms and privacy notice for the information you put into them.</p>'],
+    ['What we collect','<ul><li><b>When you ask for a demo:</b> your name, work email, company, the product you are interested in and your message.</li><li><b>When you email us:</b> what you send.</li><li><b>Nothing else about you.</b> No tracking or advertising cookies. Your day or night choice is kept in your own browser and never sent to us. The fonts load from Google Fonts, which sees your IP address as the page loads.</li></ul>'],
+    ['Why we use it','<p>To reply to you and arrange the demo you asked for. Under the GDPR this is a step you asked us to take before a possible contract, and our legitimate interest in answering you. We never sell your details or use them for advertising.</p>'],
+    ['Who can see it','<p>Our team, and the companies that run our email and website for us. Our team works from India and a partner works from the UAE, both outside the EU, so when your details are reached from there we use the safeguards the GDPR requires, such as the European Commission\'s standard contractual clauses.</p>'],
+    ['How long we keep it','<p>Up to 24 months after we last hear from you, unless you become a customer. Then the product\'s own terms apply.</p>'],
+    ['Your rights','<p>You can ask to see, correct or delete your details, to limit or object to how we use them, and to receive a copy. Write to <a href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a>. If you are not happy with our answer, you can complain to the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon, <a href="https://www.aki.ee" target="_blank" rel="noopener">aki.ee</a>).</p>'],
+    ['Changes','<p>If this notice changes, the new version appears here with its date. Last updated: 15 October 2026.</p>']
+  ];
+  var body='<main class="wrap"><section class="sec" aria-labelledby="privacy-h"><div class="sec-h"><span class="eyebrow">Privacy</span><h2 id="privacy-h">How this website handles your details</h2><p>Short and in plain words.</p></div>'+
+    '<div style="display:flex;flex-direction:column;gap:22px;max-width:760px">'+parts.map(function(s){
+      return '<div style="display:flex;flex-direction:column;gap:8px"><h3 style="font-size:22px">'+s[0]+'</h3>'+s[1].replace(/<ul>/g,'<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">')+'</div>';
+    }).join('')+'</div></section></main>';
+  return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+
+   '<title>Privacy · CocoLab</title>\n<meta name="description" content="How the CocoLab website handles the details you send us.">\n'+
+   '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
+   '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">\n'+
+   '<link rel="stylesheet" href="product.css">\n'+
+   '<script>try{var t=localStorage.getItem("cocolab-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>\n'+
+   '</head>\n<body data-product="route">\n<!-- Generated by build-products.js. Edit that file, not this one. -->\n'+
+   SYMBOLS+'\n'+header(null)+'\n'+body+'\n'+footer()+'\n<script src="product.js"></script>\n</body>\n</html>\n';
+}
+fs.writeFileSync('privacy.html',privacy());console.log('wrote privacy.html');
