@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CocoLabs</title>
 <meta name="description" content="CocoLabs makes separate products for different jobs: CocoRoute, a CRM for freight forwarders; CocoMio for HR and learning; and CocoTrado for trading accounts.">
+<link rel="canonical" href="https://cocolabs.eu/">
+<!-- Share card for link previews (LinkedIn, WhatsApp, Slack); build-products.js adds the same to the other pages -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CocoLabs">
+<meta property="og:title" content="CocoLabs · Three products. One team.">
+<meta property="og:description" content="CocoLabs makes separate products for different jobs: CocoRoute, a CRM for freight forwarders; CocoMio for HR and learning; and CocoTrado for trading accounts.">
+<meta property="og:url" content="https://cocolabs.eu/">
+<meta property="og:image" content="https://cocolabs.eu/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CocoLabs: three products, one team">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -210,10 +222,18 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--route)}
 .form-status{font-size:15px;color:var(--c-sub)}
 .form-status.ok{color:var(--c-ok)}
 
-.site-foot{padding-block:48px 40px;margin-top:88px;border-top:2px solid var(--line)}
-.foot-row{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:15px}
-.foot-links{display:flex;gap:20px;flex-wrap:wrap}
-.foot-links a{font-weight:700}
+.site-foot{padding-block:48px 32px;margin-top:88px;border-top:2px solid var(--line);color:var(--muted);font-size:15px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:32px}
+.foot-brand{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.foot-brand p{max-width:300px}
+.foot-mail{font-weight:800;color:var(--ink)}
+.foot-col{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.foot-h{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.foot-col a{font-weight:700;color:var(--ink)}
+.foot-col a:hover,.foot-mail:hover{text-decoration:underline}
+.foot-base{display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap;margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:14px}
+@media (max-width: 860px){.foot-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.foot-brand{grid-column:1 / -1}}
+@media (max-width: 520px){.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .theme-btn{min-height:40px;padding:0 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:700 14px var(--body);cursor:pointer}
 
 /* Responsive */
@@ -764,6 +784,7 @@ body{transition:background-color .6s ease,color .6s ease}
           <select id="f-product" name="product"><option>Not sure yet</option><option>CocoRoute</option><option>CocoMio</option><option>CocoTrado</option></select>
         </div>
         <div class="field full"><label for="f-msg">What would you like to see?</label><textarea id="f-msg" name="message"></textarea></div>
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
         <div class="form-foot">
           <button class="btn btn-route" type="submit">Request a demo</button>
           <span class="confetti" id="confetti" aria-hidden="true"></span>
@@ -775,19 +796,36 @@ body{transition:background-color .6s ease,color .6s ease}
   </section>
 </main>
 
+<!-- Keep in step with footer() and COMPANY in build-products.js, which the other pages use -->
 <footer class="site-foot">
-  <div class="wrap foot-row">
-    <a class="brand" href="#top" style="font-size:22px"><img class="brand-mark" src="logo.svg" alt="" width="34" height="34" style="width:34px;height:34px">CocoLabs</a>
-    <div class="foot-links">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="#top" style="font-size:22px"><img class="brand-mark" src="logo.svg" alt="" width="34" height="34" style="width:34px;height:34px">CocoLabs</a>
+      <p>Software for work that has to be right. An EU company, registered in Estonia.</p>
+      <a class="foot-mail" href="mailto:hello@cocoroute.co">hello@cocoroute.co</a>
+    </div>
+    <nav class="foot-col" aria-label="Products">
+      <span class="foot-h">Products</span>
       <a href="cocoroute.html">CocoRoute</a>
       <a href="cocomio.html">CocoMio</a>
       <a href="cocotrado.html">CocoTrado</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
-    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-      <!-- Keep in step with COMPANY in build-products.js, which the product pages and privacy notice use -->
-      <span>© 2026 CocoLabs OÜ · Registered in Estonia · Registry code 17630550</span>
-    </div>
+      <a href="#compare">Compare all <span data-count="lower">three</span></a>
+    </nav>
+    <nav class="foot-col" aria-label="Company">
+      <span class="foot-h">Company</span>
+      <a href="#about">About CocoLabs</a>
+      <a href="#contact">Book a demo</a>
+    </nav>
+    <nav class="foot-col" aria-label="Legal">
+      <span class="foot-h">Legal</span>
+      <a href="company.html">Company details</a>
+      <a href="privacy.html">Privacy notice</a>
+      <a href="terms.html">Terms of use</a>
+    </nav>
+  </div>
+  <div class="wrap foot-base">
+    <span>© 2026 CocoLabs OÜ · Registry code 17630550 · Tööstuse tn 75-71, 10416 Tallinn, Estonia (EU)</span>
+    <span>Team in India · Partner office in Dubai</span>
   </div>
 </footer>
 
@@ -844,7 +882,10 @@ body{transition:background-color .6s ease,color .6s ease}
     try{navigator.clipboard.writeText(t).then(function(){copyBtn.textContent='Copied';setTimeout(function(){copyBtn.textContent='Copy email'},1800);},sel);}catch(e){sel();}
   });
 
-  // Demo form: validates here, then opens the visitor's email app with the request filled in (no server needed)
+  // Demo form: validates here, then sends the request to our inbox through Web3Forms (a free form service).
+  // FORM_KEY is the access key web3forms.com emails to the company mailbox; it is meant to be public.
+  // Until it is set, or if sending fails, the visitor's email app opens with the request filled in instead.
+  var FORM_KEY='';
   var form=document.getElementById('demoForm'), status=document.getElementById('formStatus');
   form.addEventListener('submit',function(e){
     e.preventDefault();
@@ -852,12 +893,29 @@ body{transition:background-color .6s ease,color .6s ease}
     status.classList.remove('ok');
     if(!name.value.trim()){status.textContent='Add your name so we know who to reply to.';name.focus();return;}
     if(!email.value.trim()||!email.checkValidity()){status.textContent='Add a work email we can reply to, like name@company.com.';email.focus();return;}
+    if(form.elements.botcheck.checked)return;
     var v=function(id){return document.getElementById(id).value.trim();}, product=v('f-product'), company=v('f-company');
-    var body='Name: '+v('f-name')+'\nWork email: '+v('f-email')+'\nCompany: '+(company||'-')+'\nProduct: '+product+'\n\n'+(v('f-msg')||'I would like a demo.');
-    location.href='mailto:'+document.getElementById('emailText').textContent+'?subject='+encodeURIComponent('Demo request: '+product+(company?' ('+company+')':''))+'&body='+encodeURIComponent(body);
-    status.classList.add('ok');
-    window.cocoConfetti&&window.cocoConfetti();
-    status.textContent='Thanks, '+name.value.trim().split(' ')[0]+'. Your email app should open with the request ready to send. If it does not, email us at the address on the left.';
+    var first=v('f-name').split(' ')[0], replyTo=v('f-email'), message=v('f-msg')||'I would like a demo.';
+    var subject='Demo request: '+product+(company?' ('+company+')':'');
+    function done(text){status.classList.add('ok');window.cocoConfetti&&window.cocoConfetti();status.textContent=text;}
+    function viaEmailApp(){
+      var body='Name: '+v('f-name')+'\nWork email: '+replyTo+'\nCompany: '+(company||'-')+'\nProduct: '+product+'\n\n'+message;
+      location.href='mailto:'+document.getElementById('emailText').textContent+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+      done('Thanks, '+first+'. Your email app should open with the request ready to send. If it does not, email us at the address on the left.');
+    }
+    if(!FORM_KEY)return viaEmailApp();
+    var btn=form.querySelector('button[type="submit"]');
+    btn.disabled=true;status.textContent='Sending…';
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:FORM_KEY,subject:subject,from_name:'CocoLabs website',name:v('f-name'),email:replyTo,company:company||'-',product:product,message:message})})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(!d.success)throw new Error(d.message);
+        form.reset();
+        done('Thanks, '+first+'. Your request is with us, and we will reply to '+replyTo+'.');
+      })
+      .catch(function(){viaEmailApp();})
+      .then(function(){btn.disabled=false;});
   });
 
   // Day / night switch (remembered on this device only)

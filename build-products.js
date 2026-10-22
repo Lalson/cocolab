@@ -1,12 +1,16 @@
-/* Builds cocoroute.html, cocomio.html, cocotrado.html and privacy.html from products-data.js.
+/* Builds cocoroute.html, cocomio.html, cocotrado.html, privacy.html, terms.html, company.html and 404.html
+   from products-data.js.
    Run:  node build-products.js
    The pages are static HTML (good for search engines); product.js only adds the menus, theme and animations. */
 var fs=require('fs');
 var D=require('./products-data.js'),PRODUCTS=D.PRODUCTS,ORDER=D.ORDER;
 
 /* The legal entity behind the CocoLabs brand, as entered in the Estonian Business Register on
-   22.10.2026. The footer and contact section of index.html say the same; keep them in step. */
-var COMPANY={legal:'CocoLabs OÜ',country:'Estonia',registry:'17630550',address:'Tööstuse tn 75-71, 10416 Tallinn, Estonia',email:'hello@cocoroute.co'};
+   22.10.2026. The footer, contact section and share tags of index.html say the same; keep them in step.
+   linkedin: the company page's URL; the footer shows a LinkedIn link once it is set. */
+var COMPANY={legal:'CocoLabs OÜ',country:'Estonia',registry:'17630550',euid:'EEARIREG.17630550',registered:'22 October 2026',
+  address:'Tööstuse tn 75-71, 10416 Tallinn, Estonia',board:'Lalson Chittilappilly Lawrence',email:'hello@cocoroute.co',
+  site:'https://cocolabs.eu',register:'https://ariregister.rik.ee/eng/company/17630550',linkedin:''};
 var words=['zero','one','two','three','four','five','six','seven','eight','nine','ten'];
 var countWord=words[ORDER.length]||String(ORDER.length);
 var IC={
@@ -80,11 +84,41 @@ function header(k){
     '<a href="index.html#compare">Compare the '+countWord+'</a><a href="index.html#about">About CocoLabs</a><a class="btn btn-dark" href="'+demoHref+'">Book a demo</a></nav>'+
   '</div></header>';
 }
+/* Same columns as the footer of index.html */
 function footer(){
-  return '<footer class="site-foot"><div class="wrap foot-row">'+
-   '<a class="brand" href="index.html" style="font-size:22px"><img class="brand-mark" src="logo.svg" alt="" width="34" height="34" style="width:34px;height:34px">CocoLabs</a>'+
-   '<div class="foot-links">'+ORDER.map(function(o){return '<a href="'+fileFor(o)+'">'+PRODUCTS[o].name+'</a>';}).join('')+'<a href="privacy.html">Privacy</a></div>'+
-   '<span>© 2026 '+COMPANY.legal+' · Registered in '+COMPANY.country+(COMPANY.registry?' · Registry code '+COMPANY.registry:'')+'</span></div></footer>';
+  function col(label,links){return '<nav class="foot-col" aria-label="'+label+'"><span class="foot-h">'+label+'</span>'+links.map(function(l){
+    return '<a href="'+l[1]+'"'+(l[2]?' target="_blank" rel="noopener"':'')+'>'+l[0]+'</a>';}).join('')+'</nav>';}
+  return '<footer class="site-foot"><div class="wrap foot-grid">'+
+   '<div class="foot-brand"><a class="brand" href="index.html" style="font-size:22px"><img class="brand-mark" src="logo.svg" alt="" width="34" height="34" style="width:34px;height:34px">CocoLabs</a>'+
+    '<p>Software for work that has to be right. An EU company, registered in '+COMPANY.country+'.</p>'+
+    '<a class="foot-mail" href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a></div>'+
+   col('Products',ORDER.map(function(o){return [PRODUCTS[o].name,fileFor(o)];}).concat([['Compare all '+countWord,'index.html#compare']]))+
+   col('Company',[['About CocoLabs','index.html#about'],['Book a demo','index.html#contact']].concat(COMPANY.linkedin?[['LinkedIn',COMPANY.linkedin,1]]:[]))+
+   col('Legal',[['Company details','company.html'],['Privacy notice','privacy.html'],['Terms of use','terms.html']])+
+   '</div><div class="wrap foot-base"><span>© 2026 '+COMPANY.legal+' · Registry code '+COMPANY.registry+' · '+COMPANY.address+' (EU)</span>'+
+   '<span>Team in India · Partner office in Dubai</span></div></footer>';
+}
+
+/* The <head> every generated page shares, with the share card (Open Graph) that link previews use.
+   path is the page's clean URL ('cocoroute', 'privacy'); null leaves out the canonical URL (the 404 page). */
+function head(title,desc,path,extra){
+  var url=path===null?'':COMPANY.site+'/'+path;
+  return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+(extra||'')+
+   '<title>'+title+'</title>\n<meta name="description" content="'+esc(desc)+'">\n'+
+   (url?'<link rel="canonical" href="'+url+'">\n':'')+
+   '<meta property="og:type" content="website">\n<meta property="og:site_name" content="CocoLabs">\n'+
+   '<meta property="og:title" content="'+esc(title)+'">\n<meta property="og:description" content="'+esc(desc)+'">\n'+(url?'<meta property="og:url" content="'+url+'">\n':'')+
+   '<meta property="og:image" content="'+COMPANY.site+'/og-image.png">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'+
+   '<meta property="og:image:alt" content="CocoLabs: three products, one team">\n<meta name="twitter:card" content="summary_large_image">\n'+
+   '<link rel="icon" href="logo.svg" type="image/svg+xml">\n<link rel="apple-touch-icon" href="apple-touch-icon.png">\n'+
+   '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
+   '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">\n'+
+   '<link rel="stylesheet" href="product.css">\n'+
+   '<script>try{var t=localStorage.getItem("cocolab-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>\n'+
+   '</head>\n';
+}
+function body(product,note,k,main){
+  return '<body data-product="'+product+'">\n<!-- '+note+' -->\n'+SYMBOLS+'\n'+header(k)+'\n'+main+'\n'+footer()+'\n<script src="product.js"></script>\n</body>\n</html>\n';
 }
 
 function main(k){
@@ -127,19 +161,21 @@ function main(k){
 
 function document(k){
   var p=PRODUCTS[k];
-  return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+
-   '<title>'+p.name+' · '+nice(p.tag)+' · CocoLabs</title>\n'+
-   '<meta name="description" content="'+esc(p.menu+' '+p.h1)+'">\n'+
-   '<link rel="icon" href="logo.svg" type="image/svg+xml">\n<link rel="apple-touch-icon" href="apple-touch-icon.png">\n'+
-   '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
-   '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">\n'+
-   '<link rel="stylesheet" href="product.css">\n'+
-   '<script>try{var t=localStorage.getItem("cocolab-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>\n'+
-   '</head>\n<body data-product="'+k+'">\n<!-- Generated by build-products.js from products-data.js. Edit those, not this file. -->\n'+
-   SYMBOLS+'\n'+header(k)+'\n'+main(k)+'\n'+footer()+'\n<script src="product.js"></script>\n</body>\n</html>\n';
+  return head(p.name+' · '+nice(p.tag)+' · CocoLabs',p.menu+' '+p.h1,'coco'+k)+
+   body(k,'Generated by build-products.js from products-data.js. Edit those, not this file.',k,main(k));
 }
 
 ORDER.forEach(function(k){fs.writeFileSync(fileFor(k),document(k));console.log('wrote',fileFor(k));});
+
+/* A page of plain-words sections: privacy notice, terms of use, company details */
+function textPage(eyebrow,h2,lede,parts){
+  return '<main class="wrap"><section class="sec" aria-labelledby="text-h"><div class="sec-h"><span class="eyebrow">'+eyebrow+'</span><h2 id="text-h">'+h2+'</h2><p>'+lede+'</p></div>'+
+    '<div style="display:flex;flex-direction:column;gap:22px;max-width:760px">'+parts.map(function(s){
+      return '<div style="display:flex;flex-direction:column;gap:8px"><h3 style="font-size:22px">'+s[0]+'</h3>'+s[1].replace(/<ul>/g,'<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">')+'</div>';
+    }).join('')+'</div></section></main>';
+}
+function mail(){return '<a href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a>';}
+var GENERATED='Generated by build-products.js. Edit that file, not this one.';
 
 /* Privacy notice for this website (GDPR applies: the company is registered in the EU).
    A draft in plain words; have it checked before launch. The products have their own notices. */
@@ -151,23 +187,65 @@ function privacy(){
     ['What this notice covers','<p>This website only. CocoRoute, CocoMio and CocoTrado each keep their own terms and privacy notice for the information you put into them.</p>'],
     ['What we collect','<ul><li><b>When you ask for a demo:</b> your name, work email, company, the product you are interested in and your message.</li><li><b>When you email us:</b> what you send.</li><li><b>Nothing else about you.</b> No tracking or advertising cookies. Your day or night choice is kept in your own browser and never sent to us. The fonts load from Google Fonts, which sees your IP address as the page loads.</li></ul>'],
     ['Why we use it','<p>To reply to you and arrange the demo you asked for. Under the GDPR this is a step you asked us to take before a possible contract, and our legitimate interest in answering you. We never sell your details or use them for advertising.</p>'],
-    ['Who can see it','<p>Our team, and the companies that run our email and website for us. Our team works from India and a partner works from the UAE, both outside the EU, so when your details are reached from there we use the safeguards the GDPR requires, such as the European Commission\'s standard contractual clauses.</p>'],
+    ['Who can see it','<p>Our team, and the companies that run our email, website and demo form for us. Our team works from India and a partner works from the UAE, both outside the EU, so when your details are reached from there we use the safeguards the GDPR requires, such as the European Commission\'s standard contractual clauses.</p>'],
     ['How long we keep it','<p>Up to 24 months after we last hear from you, unless you become a customer. Then the product\'s own terms apply.</p>'],
     ['Your rights','<p>You can ask to see, correct or delete your details, to limit or object to how we use them, and to receive a copy. Write to <a href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a>. If you are not happy with our answer, you can complain to the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon, <a href="https://www.aki.ee" target="_blank" rel="noopener">aki.ee</a>).</p>'],
     ['Changes','<p>If this notice changes, the new version appears here with its date. Last updated: 22 October 2026.</p>']
   ];
-  var body='<main class="wrap"><section class="sec" aria-labelledby="privacy-h"><div class="sec-h"><span class="eyebrow">Privacy</span><h2 id="privacy-h">How this website handles your details</h2><p>Short and in plain words.</p></div>'+
-    '<div style="display:flex;flex-direction:column;gap:22px;max-width:760px">'+parts.map(function(s){
-      return '<div style="display:flex;flex-direction:column;gap:8px"><h3 style="font-size:22px">'+s[0]+'</h3>'+s[1].replace(/<ul>/g,'<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">')+'</div>';
-    }).join('')+'</div></section></main>';
-  return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+
-   '<title>Privacy · CocoLabs</title>\n<meta name="description" content="How the CocoLabs website handles the details you send us.">\n'+
-   '<link rel="icon" href="logo.svg" type="image/svg+xml">\n<link rel="apple-touch-icon" href="apple-touch-icon.png">\n'+
-   '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
-   '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">\n'+
-   '<link rel="stylesheet" href="product.css">\n'+
-   '<script>try{var t=localStorage.getItem("cocolab-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>\n'+
-   '</head>\n<body data-product="route">\n<!-- Generated by build-products.js. Edit that file, not this one. -->\n'+
-   SYMBOLS+'\n'+header(null)+'\n'+body+'\n'+footer()+'\n<script src="product.js"></script>\n</body>\n</html>\n';
+  return head('Privacy · CocoLabs','How the CocoLabs website handles the details you send us.','privacy')+
+   body('route',GENERATED,null,textPage('Privacy','How this website handles your details','Short and in plain words.',parts));
 }
-fs.writeFileSync('privacy.html',privacy());console.log('wrote privacy.html');
+
+/* Terms of use for this website only; each product has its own customer agreement.
+   A draft in plain words; have it checked before launch. */
+function terms(){
+  var parts=[
+    ['Who runs this website','<p>cocolabs.eu is run by '+COMPANY.legal+', registered in '+COMPANY.country+' (EU), registry code '+COMPANY.registry+', '+COMPANY.address+'. By using the website you accept these terms. If you do not accept them, please do not use it.</p>'],
+    ['The products have their own agreements','<p>This website describes CocoRoute, CocoMio and CocoTrado. Using a product is covered by the agreement and terms for that product, which you accept when you sign up or sign a contract. Nothing on this website is an offer or a contract on its own.</p>'],
+    ['The information on this website','<p>We work to keep it accurate and up to date. Product screens, names and numbers in the examples are illustrations, and features can change. We do not promise that the website is always available or free of errors.</p>'],
+    ['Using the website fairly','<ul><li>Do not try to break into the website, test its security without our written permission, or put a heavy load on it.</li><li>Do not copy its content in bulk with automated tools.</li><li>Do not send anything unlawful, harmful or misleading through the demo form or by email.</li></ul>'],
+    ['Names, logos and content','<p>The names CocoLabs, CocoRoute, CocoMio and CocoTrado, the logos, and the text, pictures and design of this website belong to us or are used with permission. You are welcome to view them, link to this website and share its pages. Do not copy or reuse them for other purposes without our written permission.</p>'],
+    ['Links to other websites','<p>Links to the product websites and to other sites open pages that have their own terms and privacy notices. We are not responsible for websites we do not run.</p>'],
+    ['Our responsibility','<p>The website is provided as it is, for general information. As far as the law allows, we are not responsible for loss caused by using it or relying on it. Nothing in these terms limits a responsibility that the law does not allow us to limit, or your rights as a consumer.</p>'],
+    ['Law and disputes','<p>Estonian law applies to these terms and to your use of this website. Disputes go to Harju County Court (Harju Maakohus) in Tallinn, unless the law of the country you live in gives you the right to go to a court there.</p>'],
+    ['Changes and contact','<p>If these terms change, the new version appears here with its date. Last updated: 22 October 2026. Questions: '+mail()+'.</p>']
+  ];
+  return head('Terms of use · CocoLabs','The terms for using the CocoLabs website.','terms')+
+   body('route',GENERATED,null,textPage('Terms of use','Terms for using this website','Short and in plain words.',parts));
+}
+
+/* Company details (imprint), from COMPANY and the public Business Register entry */
+function company(){
+  var rows=[
+    ['Legal name',COMPANY.legal+' (private limited company)'],
+    ['Registry code',COMPANY.registry],
+    ['EU identifier (EUID)',COMPANY.euid],
+    ['Registered','In the Estonian Business Register on '+COMPANY.registered],
+    ['Registered address',COMPANY.address],
+    ['Management board',COMPANY.board],
+    ['VAT','Not registered for VAT'],
+    ['Main activity','Computer programming (EMTAK 62101)'],
+    ['Email',mail()],
+    ['Public register entry','<a href="'+COMPANY.register+'" target="_blank" rel="noopener">ariregister.rik.ee ↗</a>']
+  ];
+  var parts=[
+    ['The company','<dl class="kv">'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl>'],
+    ['Where we work','<p>The company is registered in Tallinn, Estonia. Our team works from India, and we have a partner office in Dubai.</p>'],
+    ['Get in touch','<p>For a demo or a question about a product, use the <a href="index.html#contact">contact form</a> or write to '+mail()+'.</p>']
+  ];
+  return head('Company details · CocoLabs','Legal and contact details of '+COMPANY.legal+', the company behind CocoLabs.','company')+
+   body('route',GENERATED,null,textPage('Company details','Who is behind CocoLabs','The legal details of the company, as in the Estonian Business Register.',parts));
+}
+
+/* Shown by GitHub Pages for any address that does not exist. It can appear at any depth
+   (/old/page), so <base href="/"> makes every link and file load from the site root. */
+function notFound(){
+  var main='<main class="wrap"><section class="sec" aria-labelledby="nf-h"><div class="sec-h"><span class="eyebrow">Error 404</span><h2 id="nf-h">This page is not here</h2>'+
+    '<p>The link may be old or mistyped. One of these will get you back on track.</p></div>'+
+    '<div class="others">'+ORDER.map(function(o){var q=PRODUCTS[o];return '<a class="other" href="'+fileFor(o)+'">'+logo(o,52)+'<span class="txt"><b>'+q.name+'</b><small>'+q.menu+'</small></span><span class="go t-'+o+'">Learn more →</span></a>';}).join('')+'</div>'+
+    '<div class="ctas" style="margin-top:28px"><a class="btn btn-dark" href="index.html">Go to the home page</a><a class="btn btn-ghost" href="index.html#contact">Contact us</a></div></section></main>';
+  return head('Page not found · CocoLabs','This page does not exist on the CocoLabs website.',null,'<base href="/">\n<meta name="robots" content="noindex">\n')+
+   body('route',GENERATED,null,main);
+}
+
+[['privacy.html',privacy],['terms.html',terms],['company.html',company],['404.html',notFound]].forEach(function(f){fs.writeFileSync(f[0],f[1]());console.log('wrote',f[0]);});

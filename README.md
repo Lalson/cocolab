@@ -18,12 +18,14 @@ Any static host (Netlify, Vercel, GitHub Pages, nginx) can serve the folder as i
 |---|---|
 | `index.html` | The home page. Self-contained: its CSS and JS are inside it. |
 | `cocoroute.html`, `cocomio.html`, `cocotrado.html` | The product pages. **Generated.** Do not edit by hand. |
-| `privacy.html` | The website's privacy notice. **Generated** by `build-products.js`; edit the text there. |
+| `privacy.html`, `terms.html`, `company.html` | Privacy notice, terms of use and company details. **Generated** by `build-products.js`; edit the text there. |
+| `404.html` | The page GitHub Pages shows for an address that does not exist. **Generated.** |
 | `products-data.js` | All the content of the product pages, in one place. |
 | `build-products.js` | Builds the product pages from the data: `npm run build`. |
 | `product.css`, `product.js` | Styling and behaviour shared by the product pages. |
 | `serve.js` | The local dev server. |
 | `logo.svg`, `apple-touch-icon.png` | The CocoLabs swirl logo: header, footer and browser-tab icon; the PNG is the phone home-screen icon. |
+| `og-image.png` | The 1200×630 picture shown when a page is shared on LinkedIn, WhatsApp or Slack. |
 
 ## Live site
 
@@ -37,6 +39,12 @@ has four `A` records for `@` (185.199.108.153, .109.153, .110.153, .111.153) and
 The legal entity is **CocoLabs OÜ** (Estonia, registry code 17630550, registered 22.10.2026); the brand is CocoLabs.
 Its details live in `COMPANY` at the top of `build-products.js` (product pages and the privacy notice) and in the
 footer and contact section of `index.html`. If they change, update both places and run `npm run build`.
+
+## Demo form
+
+The form on the home page sends requests through [Web3Forms](https://web3forms.com), a free form service.
+Put the access key that Web3Forms emails to the company mailbox in `FORM_KEY` in `index.html` (it is meant to be public).
+While `FORM_KEY` is empty, or if sending fails, the form opens the visitor's email app with the request filled in.
 
 ## Change a product page
 

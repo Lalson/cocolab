@@ -251,10 +251,27 @@ p{margin:0}
 .cta-band .btn-ghost{background:rgba(255,255,255,.92);color:#2A2438;border-color:transparent}
 .cta-band .blob{position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:99px;background:rgba(255,255,255,.14);animation:bob 6s ease-in-out infinite}
 
-/* Footer */
-.site-foot{border-top:2px solid var(--line);padding-block:28px 40px;font-size:15px;color:var(--muted)}
-.foot-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.foot-links{display:flex;gap:18px;flex-wrap:wrap;font-weight:700;color:var(--ink)}
+/* Company details: label and value rows */
+.kv{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr);margin:0;border:2px solid var(--line);border-radius:20px;overflow:hidden}
+.kv dt,.kv dd{margin:0;padding:14px 18px;border-top:1px solid var(--line)}
+.kv dt{font-weight:800;font-size:15px;color:var(--muted);background:var(--panel)}
+.kv dt:first-of-type,.kv dt:first-of-type+dd{border-top:0}
+.kv a{font-weight:700;text-decoration:underline}
+@media (max-width: 600px){.kv{grid-template-columns:1fr}.kv dd{border-top:0;padding-top:0}.kv dt{background:none;padding-bottom:4px}}
+
+/* Footer (same as the main site) */
+.site-foot{border-top:2px solid var(--line);padding-block:48px 32px;font-size:15px;color:var(--muted)}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:32px}
+.foot-brand{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.foot-brand p{max-width:300px}
+.foot-mail{font-weight:800;color:var(--ink)}
+.foot-col{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.foot-h{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.foot-col a{font-weight:700;color:var(--ink)}
+.foot-col a:hover,.foot-mail:hover{text-decoration:underline}
+.foot-base{display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap;margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:14px}
+@media (max-width: 860px){.foot-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.foot-brand{grid-column:1 / -1}}
+@media (max-width: 520px){.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* Reveal on scroll (armed by JS only) */
 .rv{opacity:0;transform:translateY(22px) scale(.98)}
