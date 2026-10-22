@@ -1,4 +1,4 @@
-/* CocoLab product pages: the content of every product page lives here.
+/* CocoLabs product pages: the content of every product page lives here.
    To add a 4th product, add one entry and its key to ORDER, then run: node build-products.js */
 var PRODUCTS={
  route:{

@@ -1,6 +1,6 @@
-# CocoLab website
+# CocoLabs website
 
-The company site for CocoLab: one home page and one page per product (CocoRoute, CocoMio, CocoTrado).
+The company site for CocoLabs: one home page and one page per product (CocoRoute, CocoMio, CocoTrado).
 Plain HTML, CSS and JavaScript. No framework, no build step for the home page.
 
 ## Run it locally
@@ -26,9 +26,9 @@ Any static host (Netlify, Vercel, GitHub Pages, nginx) can serve the folder as i
 
 ## Company details
 
-The legal entity is **CocoLab Intelligence OÜ** (Estonia); the brand is CocoLab. Its details live in `COMPANY` at the top of
-`build-products.js` (product pages and the privacy notice) and in the footer and contact section of `index.html`.
-When the registry code and registered address arrive, fill them in both places and run `npm run build`.
+The legal entity is **CocoLabs OÜ** (Estonia, registry code 17630550, registered 22.10.2026); the brand is CocoLabs.
+Its details live in `COMPANY` at the top of `build-products.js` (product pages and the privacy notice) and in the
+footer and contact section of `index.html`. If they change, update both places and run `npm run build`.
 
 ## Change a product page
 

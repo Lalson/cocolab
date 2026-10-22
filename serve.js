@@ -1,4 +1,4 @@
-/* Local dev server for the CocoLab site. No dependencies.
+/* Local dev server for the CocoLabs site. No dependencies.
    Run:  node serve.js   (or: npm start)   then open http://localhost:5000
    Clean URLs work: /cocoroute -> cocoroute.html, / -> index.html */
 var http=require('http'),fs=require('fs'),path=require('path');
@@ -15,4 +15,4 @@ http.createServer(function(req,res){
     res.writeHead(200,{'Content-Type':TYPES[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});
     res.end(data);
   });
-}).listen(PORT,function(){console.log('CocoLab site running at http://localhost:'+PORT);});
+}).listen(PORT,function(){console.log('CocoLabs site running at http://localhost:'+PORT);});

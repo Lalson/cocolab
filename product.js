@@ -1,4 +1,4 @@
-/* CocoLab product pages: menus, day/night switch, scroll reveals and the feature cards. Shared by every product page. */
+/* CocoLabs product pages: menus, day/night switch, scroll reveals and the feature cards. Shared by every product page. */
 (function(){
   var root=document.documentElement;
   var head=document.querySelector('.site-head');

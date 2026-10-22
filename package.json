@@ -2,7 +2,7 @@
   "name": "cocolab-site",
   "version": "1.0.0",
   "private": true,
-  "description": "The CocoLab company website: cocoroute.co, cocomio.co and cocotrado.com under one roof.",
+  "description": "The CocoLabs company website: cocoroute.co, cocomio.co and cocotrado.com under one roof.",
   "scripts": {
     "start": "node serve.js",
     "build": "node build-products.js"

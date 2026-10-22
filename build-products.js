@@ -4,9 +4,9 @@
 var fs=require('fs');
 var D=require('./products-data.js'),PRODUCTS=D.PRODUCTS,ORDER=D.ORDER;
 
-/* The legal entity behind the CocoLab brand. Fill in the registry code and address once the
-   Estonian Business Register has registered the company; the footer of index.html says the same. */
-var COMPANY={legal:'CocoLab Intelligence OÜ',country:'Estonia',registry:'',address:'',email:'hello@cocoroute.co'};
+/* The legal entity behind the CocoLabs brand, as entered in the Estonian Business Register on
+   22.10.2026. The footer and contact section of index.html say the same; keep them in step. */
+var COMPANY={legal:'CocoLabs OÜ',country:'Estonia',registry:'17630550',address:'Tööstuse tn 75-71, 10416 Tallinn, Estonia',email:'hello@cocoroute.co'};
 var words=['zero','one','two','three','four','five','six','seven','eight','nine','ten'];
 var countWord=words[ORDER.length]||String(ORDER.length);
 var IC={
@@ -65,7 +65,7 @@ var SYMBOLS=fs.readFileSync('index.html','utf8').match(/<svg width="0" height="0
 function header(k){
   var demoHref=k?'index.html?demo='+PRODUCTS[k].name+'#contact':'index.html#contact';
   return '<header class="site-head" id="top"><div class="wrap"><div class="head-row">'+
-   '<a class="brand" href="index.html" aria-label="CocoLab home"><span class="brand-mark"><span></span></span>CocoLab</a>'+
+   '<a class="brand" href="index.html" aria-label="CocoLabs home"><span class="brand-mark"><span></span></span>CocoLabs</a>'+
    '<nav class="nav" aria-label="Main"><div class="nav-products">'+
     '<button class="nav-products-btn" id="productsBtn" aria-expanded="false" aria-controls="productsMenu">Products <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>'+
     '<div class="menu" id="productsMenu" hidden><span class="menu-label">OUR PRODUCTS · EACH HAS ITS OWN PAGE</span>'+
@@ -77,12 +77,12 @@ function header(k){
    '<button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div>'+
    '<nav class="mobile-nav" id="mobileNav" aria-label="Mobile" hidden>'+
     ORDER.map(function(o){var q=PRODUCTS[o];return '<a class="m-prod" href="'+fileFor(o)+'">'+logo(o,36)+'<span>'+q.name+'<small>'+nice(q.tag)+'</small></span></a>';}).join('')+
-    '<a href="index.html#compare">Compare the '+countWord+'</a><a href="index.html#about">About CocoLab</a><a class="btn btn-dark" href="'+demoHref+'">Book a demo</a></nav>'+
+    '<a href="index.html#compare">Compare the '+countWord+'</a><a href="index.html#about">About CocoLabs</a><a class="btn btn-dark" href="'+demoHref+'">Book a demo</a></nav>'+
   '</div></header>';
 }
 function footer(){
   return '<footer class="site-foot"><div class="wrap foot-row">'+
-   '<a class="brand" href="index.html" style="font-size:22px"><span class="brand-mark" style="width:34px;height:34px"><span style="width:14px;height:14px"></span></span>CocoLab</a>'+
+   '<a class="brand" href="index.html" style="font-size:22px"><span class="brand-mark" style="width:34px;height:34px"><span style="width:14px;height:14px"></span></span>CocoLabs</a>'+
    '<div class="foot-links">'+ORDER.map(function(o){return '<a href="'+fileFor(o)+'">'+PRODUCTS[o].name+'</a>';}).join('')+'<a href="privacy.html">Privacy</a></div>'+
    '<span>© 2026 '+COMPANY.legal+' · Registered in '+COMPANY.country+(COMPANY.registry?' · Registry code '+COMPANY.registry:'')+'</span></div></footer>';
 }
@@ -92,7 +92,7 @@ function main(k){
   var wordsH=p.h1.split(' ').map(function(w,j){return '<span class="w" style="--d:'+j+'">'+esc(w)+'</span>';}).join(' ');
   return '<main class="wrap">'+
   '<section class="p-hero"><div class="p-copy">'+
-    '<nav class="crumb" aria-label="Breadcrumb"><a href="index.html">CocoLab</a> '+ic('arrow',14)+' <b aria-current="page">'+p.name+'</b> <span class="pill" style="margin-left:6px">Product '+(i+1)+' of '+ORDER.length+'</span></nav>'+
+    '<nav class="crumb" aria-label="Breadcrumb"><a href="index.html">CocoLabs</a> '+ic('arrow',14)+' <b aria-current="page">'+p.name+'</b> <span class="pill" style="margin-left:6px">Product '+(i+1)+' of '+ORDER.length+'</span></nav>'+
     logo(k,84,'plogo')+'<span class="tag bg-acc t-acc">'+p.tag+'</span>'+
     '<h1 aria-label="'+esc(p.h1)+'">'+wordsH+'</h1><p class="lede">'+p.lede+'</p>'+
     '<div class="ctas"><a class="btn btn-dark" href="'+demo+'">Book a demo</a><a class="btn btn-acc" href="'+p.url+'" target="_blank" rel="noopener">Visit '+p.domain+' '+ic('ext',16)+'</a></div>'+
@@ -118,7 +118,7 @@ function main(k){
   '<section class="sec alt" id="faq" aria-labelledby="faq-h"><div class="sec-h" data-reveal><span class="eyebrow">Questions</span><h2 id="faq-h">What people ask before they start</h2></div>'+
    '<div class="faq">'+p.faq.map(function(q,j){return '<details data-reveal style="--i:'+j+'"><summary>'+q[0]+'<span class="pm" aria-hidden="true">+</span></summary><div class="ans">'+q[1]+'</div></details>';}).join('')+'</div></section>'+
 
-  '<section class="sec" id="others" aria-labelledby="others-h"><div class="sec-h" data-reveal><span class="eyebrow">Also from CocoLab</span><h2 id="others-h">The other products</h2><p>Separate products for separate jobs. They share a team, not a login.</p></div>'+
+  '<section class="sec" id="others" aria-labelledby="others-h"><div class="sec-h" data-reveal><span class="eyebrow">Also from CocoLabs</span><h2 id="others-h">The other products</h2><p>Separate products for separate jobs. They share a team, not a login.</p></div>'+
    '<div class="others">'+ORDER.filter(function(o){return o!==k;}).map(function(o,j){var q=PRODUCTS[o];return '<a class="other" href="'+fileFor(o)+'" data-reveal style="--i:'+j+'">'+logo(o,52)+'<span class="txt"><b>'+q.name+'</b><small>'+q.menu+'</small></span><span class="go t-'+o+'">Learn more →</span></a>';}).join('')+'</div></section>'+
 
   '<section class="cta-band" id="demo" data-reveal><span class="blob" aria-hidden="true"></span><div><h2>See '+p.name+' with your own work in it.</h2><p>A thirty-minute demo, on your data if you like. No slides.</p></div><div class="ctas"><a class="btn btn-dark" href="'+demo+'">Book a demo</a><a class="btn btn-ghost" href="'+p.url+'" target="_blank" rel="noopener">Visit '+p.domain+' '+ic('ext',16)+'</a></div></section>'+
@@ -128,7 +128,7 @@ function main(k){
 function document(k){
   var p=PRODUCTS[k];
   return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+
-   '<title>'+p.name+' · '+nice(p.tag)+' · CocoLab</title>\n'+
+   '<title>'+p.name+' · '+nice(p.tag)+' · CocoLabs</title>\n'+
    '<meta name="description" content="'+esc(p.menu+' '+p.h1)+'">\n'+
    '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">\n'+
@@ -146,21 +146,21 @@ function privacy(){
   var who=COMPANY.legal+', a private limited company registered in '+COMPANY.country+' (EU)'+
     (COMPANY.registry?', registry code '+COMPANY.registry:'')+(COMPANY.address?', '+COMPANY.address:'')+'.';
   var parts=[
-    ['Who we are','<p>'+who+' CocoLab is our brand. Write to us at <a href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a> about anything on this page.</p>'],
+    ['Who we are','<p>'+who+' Write to us at <a href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a> about anything on this page.</p>'],
     ['What this notice covers','<p>This website only. CocoRoute, CocoMio and CocoTrado each keep their own terms and privacy notice for the information you put into them.</p>'],
     ['What we collect','<ul><li><b>When you ask for a demo:</b> your name, work email, company, the product you are interested in and your message.</li><li><b>When you email us:</b> what you send.</li><li><b>Nothing else about you.</b> No tracking or advertising cookies. Your day or night choice is kept in your own browser and never sent to us. The fonts load from Google Fonts, which sees your IP address as the page loads.</li></ul>'],
     ['Why we use it','<p>To reply to you and arrange the demo you asked for. Under the GDPR this is a step you asked us to take before a possible contract, and our legitimate interest in answering you. We never sell your details or use them for advertising.</p>'],
     ['Who can see it','<p>Our team, and the companies that run our email and website for us. Our team works from India and a partner works from the UAE, both outside the EU, so when your details are reached from there we use the safeguards the GDPR requires, such as the European Commission\'s standard contractual clauses.</p>'],
     ['How long we keep it','<p>Up to 24 months after we last hear from you, unless you become a customer. Then the product\'s own terms apply.</p>'],
     ['Your rights','<p>You can ask to see, correct or delete your details, to limit or object to how we use them, and to receive a copy. Write to <a href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a>. If you are not happy with our answer, you can complain to the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon, <a href="https://www.aki.ee" target="_blank" rel="noopener">aki.ee</a>).</p>'],
-    ['Changes','<p>If this notice changes, the new version appears here with its date. Last updated: 15 October 2026.</p>']
+    ['Changes','<p>If this notice changes, the new version appears here with its date. Last updated: 22 October 2026.</p>']
   ];
   var body='<main class="wrap"><section class="sec" aria-labelledby="privacy-h"><div class="sec-h"><span class="eyebrow">Privacy</span><h2 id="privacy-h">How this website handles your details</h2><p>Short and in plain words.</p></div>'+
     '<div style="display:flex;flex-direction:column;gap:22px;max-width:760px">'+parts.map(function(s){
       return '<div style="display:flex;flex-direction:column;gap:8px"><h3 style="font-size:22px">'+s[0]+'</h3>'+s[1].replace(/<ul>/g,'<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">')+'</div>';
     }).join('')+'</div></section></main>';
   return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+
-   '<title>Privacy · CocoLab</title>\n<meta name="description" content="How the CocoLab website handles the details you send us.">\n'+
+   '<title>Privacy · CocoLabs</title>\n<meta name="description" content="How the CocoLabs website handles the details you send us.">\n'+
    '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">\n'+
    '<link rel="stylesheet" href="product.css">\n'+

@@ -1,4 +1,4 @@
-/* CocoLab product pages. Shared by cocoroute.html, cocomio.html and cocotrado.html; generated pages, edit products-data.js and build-products.js instead. */
+/* CocoLabs product pages. Shared by cocoroute.html, cocomio.html and cocotrado.html; generated pages, edit products-data.js and build-products.js instead. */
 :root{
   --bg:#ffffff; --panel:#FAF8F4; --ink:#2A2438; --muted:#5B5470; --line:#EFEAE2; --dot:#E4DCCF;
   --chip:#F7F3EC; --card:#ffffff; --shadow:rgba(42,36,56,.28);
@@ -31,7 +31,7 @@
   --route-text:#74B6F2; --route-tint:#0F1E30; --route-line:#1F3A5C;
   --night:#0F0D14; --night-sub:#B7B0C6; --warn:#F5B36B; --warn-tint:#2E2116;
 }
-/* the product in view lends its colour to the page; the chrome stays CocoLab */
+/* the product in view lends its colour to the page; the chrome stays CocoLabs */
 body[data-product="route"]{--acc:var(--route);--acc-dark:var(--route-dark);--acc-on:var(--route-on);--acc-text:var(--route-text);--acc-tint:var(--route-tint);--acc-line:var(--route-line)}
 body[data-product="mio"]{--acc:var(--mio);--acc-dark:var(--mio-dark);--acc-on:var(--mio-on);--acc-text:var(--mio-text);--acc-tint:var(--mio-tint);--acc-line:var(--mio-line)}
 body[data-product="trado"]{--acc:var(--trado);--acc-dark:var(--trado-dark);--acc-on:var(--trado-on);--acc-text:var(--trado-text);--acc-tint:var(--trado-tint);--acc-line:var(--trado-line)}
