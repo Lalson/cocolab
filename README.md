@@ -24,6 +24,13 @@ Any static host (Netlify, Vercel, GitHub Pages, nginx) can serve the folder as i
 | `product.css`, `product.js` | Styling and behaviour shared by the product pages. |
 | `serve.js` | The local dev server. |
 
+## Live site
+
+https://cocolabs.eu is served by GitHub Pages from the `claude/sweet-einstein-nkqqs2` branch (repository root).
+Pushing to that branch republishes the site in about a minute. The domain is registered at GoDaddy, whose DNS
+has four `A` records for `@` (185.199.108.153, .109.153, .110.153, .111.153) and a `CNAME` for `www` pointing to
+`lalson.github.io`. The `CNAME` file holds the domain; `.nojekyll` stops GitHub from processing the files.
+
 ## Company details
 
 The legal entity is **CocoLabs OÜ** (Estonia, registry code 17630550, registered 22.10.2026); the brand is CocoLabs.
