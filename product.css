@@ -55,8 +55,7 @@ p{margin:0}
 .site-head.scrolled{border-bottom-color:var(--line)}
 .head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;height:80px}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:26px;font-weight:700}
-.brand-mark{width:40px;height:40px;border-radius:14px;background:#FFE3C2;display:grid;place-items:center;flex-shrink:0}
-.brand-mark span{width:18px;height:18px;border-radius:99px;background:#8A5A2B}
+.brand-mark{width:40px;height:40px;display:block;flex-shrink:0}
 .nav{display:flex;align-items:center;gap:6px;font-weight:600;font-size:16px}
 .nav > a,.nav-products-btn{padding:10px 14px;border-radius:12px;color:var(--muted)}
 .nav > a:hover,.nav-products-btn:hover{color:var(--ink);background:var(--chip)}

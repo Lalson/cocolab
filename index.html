@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CocoLabs</title>
 <meta name="description" content="CocoLabs makes separate products for different jobs: CocoRoute, a CRM for freight forwarders; CocoMio for HR and learning; and CocoTrado for trading accounts.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">
@@ -60,8 +62,7 @@ p{margin:0}
 .site-head.scrolled{border-bottom-color:var(--line)}
 .head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;height:80px}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:26px;font-weight:700}
-.brand-mark{width:40px;height:40px;border-radius:14px;background:#FFE3C2;display:grid;place-items:center;flex-shrink:0}
-.brand-mark span{width:18px;height:18px;border-radius:99px;background:#8A5A2B}
+.brand-mark{width:40px;height:40px;display:block;flex-shrink:0}
 .nav{display:flex;align-items:center;gap:6px;font-weight:600;font-size:16px}
 .nav > a,.nav-products-btn{padding:10px 14px;border-radius:12px;color:var(--muted)}
 .nav > a:hover,.nav-products-btn:hover{color:var(--ink);background:var(--chip)}
@@ -444,7 +445,7 @@ body{transition:background-color .6s ease,color .6s ease}
   <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
   <div class="wrap">
     <div class="head-row">
-      <a class="brand" href="#top" aria-label="CocoLabs home"><span class="brand-mark"><span></span></span>CocoLabs</a>
+      <a class="brand" href="#top" aria-label="CocoLabs home"><img class="brand-mark" src="logo.svg" alt="" width="40" height="40">CocoLabs</a>
       <nav class="nav" aria-label="Main">
         <div class="nav-products">
           <button class="nav-products-btn" id="productsBtn" aria-expanded="false" aria-controls="productsMenu">Products
@@ -776,7 +777,7 @@ body{transition:background-color .6s ease,color .6s ease}
 
 <footer class="site-foot">
   <div class="wrap foot-row">
-    <a class="brand" href="#top" style="font-size:22px"><span class="brand-mark" style="width:34px;height:34px"><span style="width:14px;height:14px"></span></span>CocoLabs</a>
+    <a class="brand" href="#top" style="font-size:22px"><img class="brand-mark" src="logo.svg" alt="" width="34" height="34" style="width:34px;height:34px">CocoLabs</a>
     <div class="foot-links">
       <a href="cocoroute.html">CocoRoute</a>
       <a href="cocomio.html">CocoMio</a>

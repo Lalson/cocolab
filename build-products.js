@@ -65,7 +65,7 @@ var SYMBOLS=fs.readFileSync('index.html','utf8').match(/<svg width="0" height="0
 function header(k){
   var demoHref=k?'index.html?demo='+PRODUCTS[k].name+'#contact':'index.html#contact';
   return '<header class="site-head" id="top"><div class="wrap"><div class="head-row">'+
-   '<a class="brand" href="index.html" aria-label="CocoLabs home"><span class="brand-mark"><span></span></span>CocoLabs</a>'+
+   '<a class="brand" href="index.html" aria-label="CocoLabs home"><img class="brand-mark" src="logo.svg" alt="" width="40" height="40">CocoLabs</a>'+
    '<nav class="nav" aria-label="Main"><div class="nav-products">'+
     '<button class="nav-products-btn" id="productsBtn" aria-expanded="false" aria-controls="productsMenu">Products <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>'+
     '<div class="menu" id="productsMenu" hidden><span class="menu-label">OUR PRODUCTS · EACH HAS ITS OWN PAGE</span>'+
@@ -82,7 +82,7 @@ function header(k){
 }
 function footer(){
   return '<footer class="site-foot"><div class="wrap foot-row">'+
-   '<a class="brand" href="index.html" style="font-size:22px"><span class="brand-mark" style="width:34px;height:34px"><span style="width:14px;height:14px"></span></span>CocoLabs</a>'+
+   '<a class="brand" href="index.html" style="font-size:22px"><img class="brand-mark" src="logo.svg" alt="" width="34" height="34" style="width:34px;height:34px">CocoLabs</a>'+
    '<div class="foot-links">'+ORDER.map(function(o){return '<a href="'+fileFor(o)+'">'+PRODUCTS[o].name+'</a>';}).join('')+'<a href="privacy.html">Privacy</a></div>'+
    '<span>© 2026 '+COMPANY.legal+' · Registered in '+COMPANY.country+(COMPANY.registry?' · Registry code '+COMPANY.registry:'')+'</span></div></footer>';
 }
@@ -130,6 +130,7 @@ function document(k){
   return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+
    '<title>'+p.name+' · '+nice(p.tag)+' · CocoLabs</title>\n'+
    '<meta name="description" content="'+esc(p.menu+' '+p.h1)+'">\n'+
+   '<link rel="icon" href="logo.svg" type="image/svg+xml">\n<link rel="apple-touch-icon" href="apple-touch-icon.png">\n'+
    '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">\n'+
    '<link rel="stylesheet" href="product.css">\n'+
@@ -161,6 +162,7 @@ function privacy(){
     }).join('')+'</div></section></main>';
   return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+
    '<title>Privacy · CocoLabs</title>\n<meta name="description" content="How the CocoLabs website handles the details you send us.">\n'+
+   '<link rel="icon" href="logo.svg" type="image/svg+xml">\n<link rel="apple-touch-icon" href="apple-touch-icon.png">\n'+
    '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">\n'+
    '<link rel="stylesheet" href="product.css">\n'+

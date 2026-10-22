@@ -23,6 +23,7 @@ Any static host (Netlify, Vercel, GitHub Pages, nginx) can serve the folder as i
 | `build-products.js` | Builds the product pages from the data: `npm run build`. |
 | `product.css`, `product.js` | Styling and behaviour shared by the product pages. |
 | `serve.js` | The local dev server. |
+| `logo.svg`, `apple-touch-icon.png` | The CocoLabs swirl logo: header, footer and browser-tab icon; the PNG is the phone home-screen icon. |
 
 ## Live site
 
