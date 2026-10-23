@@ -95,8 +95,7 @@ function footer(){
    col('Products',ORDER.map(function(o){return [PRODUCTS[o].name,fileFor(o)];}).concat([['Compare all '+countWord,'index.html#compare']]))+
    col('Company',[['About CocoLabs','index.html#about'],['Book a demo','index.html#contact']].concat(COMPANY.linkedin?[['LinkedIn',COMPANY.linkedin,1]]:[]))+
    col('Legal',[['Company details','company.html'],['Privacy notice','privacy.html'],['Terms of use','terms.html']])+
-   '</div><div class="wrap foot-base"><span>© 2026 '+COMPANY.legal+' · Registry code '+COMPANY.registry+' · '+COMPANY.address+' (EU)</span>'+
-   '<span>Team in India · Partner office in Dubai</span></div></footer>';
+   '</div><div class="wrap foot-base"><span>© 2026 '+COMPANY.legal+' · Registry code '+COMPANY.registry+' · '+COMPANY.address+' (EU)</span></div></footer>';
 }
 
 /* The <head> every generated page shares, with the share card (Open Graph) that link previews use.
@@ -187,10 +186,10 @@ function privacy(){
     ['What this notice covers','<p>This website only. CocoRoute, CocoMio and CocoTrado each keep their own terms and privacy notice for the information you put into them.</p>'],
     ['What we collect','<ul><li><b>When you ask for a demo:</b> your name, work email, company, the product you are interested in and your message.</li><li><b>When you email us:</b> what you send.</li><li><b>Nothing else about you.</b> No tracking or advertising cookies. Your day or night choice is kept in your own browser and never sent to us. The fonts load from Google Fonts, which sees your IP address as the page loads.</li></ul>'],
     ['Why we use it','<p>To reply to you and arrange the demo you asked for. Under the GDPR this is a step you asked us to take before a possible contract, and our legitimate interest in answering you. We never sell your details or use them for advertising.</p>'],
-    ['Who can see it','<p>Our team, and the companies that run our email, website and demo form for us. Our team works from India and a partner works from the UAE, both outside the EU, so when your details are reached from there we use the safeguards the GDPR requires, such as the European Commission\'s standard contractual clauses.</p>'],
+    ['Who can see it','<p>Our team, and the companies that run our email, website and demo form for us. Some of them work outside the EU, so when your details are reached from there we use the safeguards the GDPR requires, such as the European Commission\'s standard contractual clauses.</p>'],
     ['How long we keep it','<p>Up to 24 months after we last hear from you, unless you become a customer. Then the product\'s own terms apply.</p>'],
     ['Your rights','<p>You can ask to see, correct or delete your details, to limit or object to how we use them, and to receive a copy. Write to <a href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a>. If you are not happy with our answer, you can complain to the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon, <a href="https://www.aki.ee" target="_blank" rel="noopener">aki.ee</a>).</p>'],
-    ['Changes','<p>If this notice changes, the new version appears here with its date. Last updated: 22 October 2026.</p>']
+    ['Changes','<p>If this notice changes, the new version appears here with its date. Last updated: 23 October 2026.</p>']
   ];
   return head('Privacy · CocoLabs','How the CocoLabs website handles the details you send us.','privacy')+
    body('route',GENERATED,null,textPage('Privacy','How this website handles your details','Short and in plain words.',parts));
@@ -230,7 +229,6 @@ function company(){
   ];
   var parts=[
     ['The company','<dl class="kv">'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl>'],
-    ['Where we work','<p>The company is registered in Tallinn, Estonia. Our team works from India, and we have a partner office in Dubai.</p>'],
     ['Get in touch','<p>For a demo or a question about a product, use the <a href="index.html#contact">contact form</a> or write to '+mail()+'.</p>']
   ];
   return head('Company details · CocoLabs','Legal and contact details of '+COMPANY.legal+', the company behind CocoLabs.','company')+
