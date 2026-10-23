@@ -10,7 +10,7 @@ var D=require('./products-data.js'),PRODUCTS=D.PRODUCTS,ORDER=D.ORDER;
    linkedin: the company page's URL; the footer shows a LinkedIn link once it is set. */
 var COMPANY={legal:'CocoLabs OÜ',country:'Estonia',registry:'17630550',euid:'EEARIREG.17630550',registered:'22 October 2026',
   address:'Tööstuse tn 75-71, 10416 Tallinn, Estonia',board:'Lalson Chittilappilly Lawrence',email:'hello@cocolabs.eu',
-  site:'https://cocolabs.eu',register:'https://ariregister.rik.ee/eng/company/17630550',linkedin:''};
+  site:'https://cocolabs.eu',register:'https://ariregister.rik.ee/eng/company/17630550',linkedin:'https://www.linkedin.com/company/cocolabs-eu'};
 var words=['zero','one','two','three','four','five','six','seven','eight','nine','ten'];
 var countWord=words[ORDER.length]||String(ORDER.length);
 var IC={
