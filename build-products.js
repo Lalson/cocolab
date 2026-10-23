@@ -7,10 +7,11 @@ var D=require('./products-data.js'),PRODUCTS=D.PRODUCTS,ORDER=D.ORDER;
 
 /* The legal entity behind the CocoLabs brand, as entered in the Estonian Business Register on
    22.10.2026. The footer, contact section and share tags of index.html say the same; keep them in step.
-   linkedin: the company page's URL; the footer shows a LinkedIn link once it is set. */
+   linkedin, facebook: the company pages' URLs; the footer shows a link for each one that is set. */
 var COMPANY={legal:'CocoLabs OÜ',country:'Estonia',registry:'17630550',euid:'EEARIREG.17630550',registered:'22 October 2026',
   address:'Tööstuse tn 75-71, 10416 Tallinn, Harju County, Estonia',board:'Lalson Chittilappilly Lawrence',email:'hello@cocolabs.eu',
-  site:'https://cocolabs.eu',register:'https://ariregister.rik.ee/eng/company/17630550',linkedin:'https://www.linkedin.com/company/cocolabs-eu'};
+  site:'https://cocolabs.eu',register:'https://ariregister.rik.ee/eng/company/17630550',linkedin:'https://www.linkedin.com/company/cocolabs-eu',
+  facebook:'https://www.facebook.com/profile.php?id=61595835028004'};
 var words=['zero','one','two','three','four','five','six','seven','eight','nine','ten'];
 var countWord=words[ORDER.length]||String(ORDER.length);
 var IC={
@@ -93,7 +94,7 @@ function footer(){
     '<p>Software for work that has to be right. An EU company, registered in '+COMPANY.country+'.</p>'+
     '<a class="foot-mail" href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a></div>'+
    col('Products',ORDER.map(function(o){return [PRODUCTS[o].name,fileFor(o)];}).concat([['Compare all '+countWord,'index.html#compare']]))+
-   col('Company',[['About CocoLabs','index.html#about'],['Book a demo','index.html#contact']].concat(COMPANY.linkedin?[['LinkedIn',COMPANY.linkedin,1]]:[]))+
+   col('Company',[['About CocoLabs','index.html#about'],['Book a demo','index.html#contact']].concat(COMPANY.linkedin?[['LinkedIn',COMPANY.linkedin,1]]:[],COMPANY.facebook?[['Facebook',COMPANY.facebook,1]]:[]))+
    col('Legal',[['Company details','company.html'],['Privacy notice','privacy.html'],['Terms of use','terms.html']])+
    '</div><div class="wrap foot-base"><span>© 2026 '+COMPANY.legal+' · Registry code '+COMPANY.registry+' · '+COMPANY.address+' (EU)</span></div></footer>';
 }
