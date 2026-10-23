@@ -7,7 +7,7 @@ var D=require('./products-data.js'),PRODUCTS=D.PRODUCTS,ORDER=D.ORDER;
 
 /* The legal entity behind the CocoLabs brand, as entered in the Estonian Business Register on
    22.10.2026. The footer, contact section and share tags of index.html say the same; keep them in step.
-   linkedin, facebook: the company pages' URLs; the footer shows a link for each one that is set. */
+   linkedin, facebook: the company pages' URLs; the footer shows a link and an icon for each one that is set. */
 var COMPANY={legal:'CocoLabs OÜ',country:'Estonia',registry:'17630550',euid:'EEARIREG.17630550',registered:'22 October 2026',
   address:'Tööstuse tn 75-71, 10416 Tallinn, Harju County, Estonia',board:'Lalson Chittilappilly Lawrence',email:'hello@cocolabs.eu',
   site:'https://cocolabs.eu',register:'https://ariregister.rik.ee/eng/company/17630550',linkedin:'https://www.linkedin.com/company/cocolabs-eu',
@@ -86,13 +86,17 @@ function header(k){
   '</div></header>';
 }
 /* Same columns as the footer of index.html */
+var SOCIAL=[['linkedin','LinkedIn','M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z'],
+  ['facebook','Facebook','M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2v2.3H7.6V14h2.7v8z']];
 function footer(){
   function col(label,links){return '<nav class="foot-col" aria-label="'+label+'"><span class="foot-h">'+label+'</span>'+links.map(function(l){
     return '<a href="'+l[1]+'"'+(l[2]?' target="_blank" rel="noopener"':'')+'>'+l[0]+'</a>';}).join('')+'</nav>';}
   return '<footer class="site-foot"><div class="wrap foot-grid">'+
    '<div class="foot-brand"><a class="brand" href="index.html" style="font-size:22px"><img class="brand-mark" src="logo.svg" alt="" width="34" height="34" style="width:34px;height:34px">CocoLabs</a>'+
     '<p>Software for work that has to be right. An EU company, registered in '+COMPANY.country+'.</p>'+
-    '<a class="foot-mail" href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a></div>'+
+    '<a class="foot-mail" href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a>'+
+    '<div class="foot-social">'+SOCIAL.filter(function(s){return COMPANY[s[0]];}).map(function(s){
+      return '<a href="'+COMPANY[s[0]]+'" target="_blank" rel="noopener" aria-label="CocoLabs on '+s[1]+'"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="'+s[2]+'"/></svg></a>';}).join('')+'</div></div>'+
    col('Products',ORDER.map(function(o){return [PRODUCTS[o].name,fileFor(o)];}).concat([['Compare all '+countWord,'index.html#compare']]))+
    col('Company',[['About CocoLabs','index.html#about'],['Book a demo','index.html#contact']].concat(COMPANY.linkedin?[['LinkedIn',COMPANY.linkedin,1]]:[],COMPANY.facebook?[['Facebook',COMPANY.facebook,1]]:[]))+
    col('Legal',[['Company details','company.html'],['Privacy notice','privacy.html'],['Terms of use','terms.html']])+

@@ -269,6 +269,9 @@ p{margin:0}
 .foot-h{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .foot-col a{font-weight:700;color:var(--ink)}
 .foot-col a:hover,.foot-mail:hover{text-decoration:underline}
+.foot-social{display:flex;gap:10px;margin-top:4px}
+.foot-social a{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);transition:background-color .15s,border-color .15s,color .15s}
+.foot-social a:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .foot-base{display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap;margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:14px}
 @media (max-width: 860px){.foot-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.foot-brand{grid-column:1 / -1}}
 @media (max-width: 520px){.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
