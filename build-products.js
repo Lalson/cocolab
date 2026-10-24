@@ -248,7 +248,7 @@ function company(){
 var ABOUT={
   // Texts drafted for the founder to edit. While a flag is true the text shows in a dashed "draft" box and
   // counts as still to do; set it to false once the words are final. [Brackets] mark blanks to fill in.
-  draft:{story:true},
+  draft:{story:false},
   story:[  // two or three short paragraphs on why CocoLabs exists; from the founder's own account, 24 Oct 2026
     'CocoLabs started in logistics. Every shipment brings a stream of emails, WhatsApp messages and booking confirmations, '+
       'and the one detail you need is always buried somewhere in them. Keeping on top of it by hand was hard every single day, '+
