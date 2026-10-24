@@ -255,18 +255,10 @@ var ABOUT={
       'So we made one system for all of it, with its own academy where staff learn and move up. That became CocoMio.',
     'CocoTrado does the same for buying agents who handle their clients\' money. Each product does one job, and all of them follow the same rules: '+
       'history is kept, a named person decides, and each company\'s data stays its own.'
-  ],
-  // [when, what, detail]; an empty when marks a date still to add
-  milestones:[
-    ['','CocoRoute goes live','Add the month and year the first customer started using it.'],
-    ['','CocoMio goes live','Add the month and year the first company started using it.'],
-    ['','CocoTrado goes live','Add the month and year the first client statement went out.'],
-    ['Oct 2026','CocoLabs OÜ is registered in Estonia','Entered in the Estonian Business Register in Tallinn on '+COMPANY.registered+'. The website, cocolabs.eu, goes live the same day.']
   ]
 };
 function aboutGaps(){
-  return (ABOUT.story.length&&!ABOUT.draft.story?0:1)+
-    ABOUT.milestones.filter(function(m){return !m[0];}).length;
+  return ABOUT.story.length&&!ABOUT.draft.story?0:1;
 }
 function about(){
   function cap(w){return w.charAt(0).toUpperCase()+w.slice(1);}
@@ -305,10 +297,6 @@ function about(){
       return '<div data-reveal style="--i:'+j+'"><dt>'+g[0]+'</dt><dd>'+g[1]+'</dd></div>';}).join('')+'</dl>'+
     '<p class="a-more"><a href="company.html">All company details →</a></p>';
 
-  var day='<div class="day">'+ABOUT.milestones.map(function(m,j){var open=!m[0];
-    return '<div class="step'+(j%2?' flip':'')+'" data-reveal style="--i:'+j+'"><span class="t'+(open?' todo-t':'')+'">'+(m[0]||'Date to add')+'</span>'+
-      '<span class="dotm" aria-hidden="true"></span><div class="cardm'+(open?' todo-card':'')+'"><b>'+m[1]+'</b><p>'+m[2]+'</p></div></div>';}).join('')+'</div>';
-
   var notes={linkedin:'Company news and product updates',facebook:'Tips and product news',
     instagram:'@'+(COMPANY.instagram||'').replace(/^https:\/\/www\.instagram\.com\/|\/$/g,'')};
   var follow='<div class="others">'+SOCIAL.filter(function(s){return COMPANY[s[0]];}).map(function(s,j){
@@ -326,8 +314,7 @@ function about(){
    sec('products',true,'What we make',cap(countWord)+' products, each for one job','Each one has its own page with the screens, the details and the questions people ask.',prods)+
    sec('principles',false,'How we build',cap(words[rules.length])+' rules every product follows','The same rules hold whatever job the product does.',ruleCards)+
    sec('glance',true,'At a glance','The company','The basics. The full legal details are on the company page.',glance)+
-   sec('milestones',false,'Milestones','How we got here','',day)+
-   sec('follow',true,'Follow us','Follow CocoLabs','Product updates, tips and company news.',follow)+
+   sec('follow',false,'Follow us','Follow CocoLabs','Product updates, tips and company news.',follow)+
    '<section class="cta-band" id="demo" data-reveal><span class="blob" aria-hidden="true"></span><div><h2>Want to see one in action?</h2>'+
     '<p>A thirty-minute demo of '+anyOf+', on your data if you like. No slides.</p></div>'+
     '<div class="ctas"><a class="btn btn-dark" href="index.html#contact">Book a demo</a><a class="btn btn-ghost" href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a></div></section>'+
@@ -348,4 +335,4 @@ function notFound(){
 }
 
 [['privacy.html',privacy],['terms.html',terms],['company.html',company],['about.html',about],['404.html',notFound]].forEach(function(f){fs.writeFileSync(f[0],f[1]());console.log('wrote',f[0]);});
-if(aboutGaps())console.log('about.html still has '+aboutGaps()+' drafts or placeholders to finish (ABOUT in build-products.js)');
+var gaps=aboutGaps();if(gaps)console.log('about.html is not final yet: '+gaps+' draft'+(gaps>1?'s or placeholders':' or placeholder')+' left (ABOUT in build-products.js)');
