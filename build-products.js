@@ -244,10 +244,23 @@ function company(){
 /* The About page. ABOUT holds what only the founder can write. While a field is empty the page shows a
    dashed "to write" box in its place, and the build counts what is left: fill these in before the page goes live. */
 var ABOUT={
-  story:[],  // two or three short paragraphs on why CocoLabs exists
+  // Texts drafted for the founder to edit. While a flag is true the text shows in a dashed "draft" box and
+  // counts as still to do; set it to false once the words are final. [Brackets] mark blanks to fill in.
+  draft:{story:true,bio:true},
+  story:[  // two or three short paragraphs on why CocoLabs exists
+    'CocoLabs began with a simple question: why is the most important work in a business so often kept in the least reliable places? '+
+      'A freight quote lives in a WhatsApp chat. An employee\'s attendance lives in a paper register. A client\'s money lives in a spreadsheet only one person understands.',
+    'Each of those places works until the day it doesn\'t: a rate nobody can find, a visa that expired unnoticed, a payment one person could release alone. '+
+      'The teams we spoke to didn\'t need more software. They needed the right record, kept properly, for the one job they do every day.',
+    'So we build one product per job: CocoRoute for freight forwarders, CocoMio for HR teams and their people, and CocoTrado for buying agents. '+
+      'They follow the same rules. History is kept, a named person decides, and each company\'s data stays its own. '+
+      '[One or two sentences on what made you personally start CocoLabs.]'
+  ],
   founder:{name:COMPANY.board,role:'Founder and management board member, '+COMPANY.legal,
     photo:'',     // a square picture next to the pages, at least 400 × 400 pixels
-    bio:'',       // two or three lines
+    bio:'I lead CocoLabs and build its products together with the team. '+  // two or three lines
+      'Before CocoLabs, I [one line on your background: the industry you worked in and what you did there]. '+
+      'Most of my time goes into CocoRoute, our main product, and into talking with forwarding teams about how they work.',
     linkedin:''}, // the personal LinkedIn profile's URL
   // [when, what, detail]; an empty when marks a date still to add
   milestones:[
@@ -258,19 +271,21 @@ var ABOUT={
   ]
 };
 function aboutGaps(){
-  return (ABOUT.story.length?0:1)+(ABOUT.founder.bio?0:1)+(ABOUT.founder.photo?0:1)+
+  return (ABOUT.story.length&&!ABOUT.draft.story?0:1)+(ABOUT.founder.bio&&!ABOUT.draft.bio?0:1)+(ABOUT.founder.photo?0:1)+
     ABOUT.milestones.filter(function(m){return !m[0];}).length;
 }
 function about(){
   function cap(w){return w.charAt(0).toUpperCase()+w.slice(1);}
-  function todo(title,asks){return '<div class="todo" data-reveal><span class="todo-lab">To write · in your own words</span><b>'+title+'</b><ul>'+
+  function todo(title,asks,lab){return '<div class="todo" data-reveal><span class="todo-lab">'+(lab||'To write · in your own words')+'</span><b>'+title+'</b><ul>'+
     asks.map(function(a){return '<li>'+a+'</li>';}).join('')+'</ul></div>';}
+  function draft(on,html){return on?'<div class="draft" data-reveal><span class="todo-lab">Draft · edit before it goes live</span>'+html+'</div>':html;}
+  function blanks(s){return s.replace(/\[([^\]]+)\]/g,'<mark class="blank">$1</mark>');}
   function sec(id,alt,eyebrow,h2,p,inner){return '<section class="sec'+(alt?' alt':'')+'" id="'+id+'" aria-labelledby="'+id+'-h"><div class="sec-h" data-reveal>'+
     '<span class="eyebrow">'+eyebrow+'</span><h2 id="'+id+'-h">'+h2+'</h2>'+(p?'<p>'+p+'</p>':'')+'</div>'+inner+'</section>';}
   var names=ORDER.map(function(o){return PRODUCTS[o].name;}),
       anyOf=names.slice(0,-1).join(', ')+' or '+names[names.length-1];
 
-  var story=ABOUT.story.length?'<div class="story" data-reveal>'+ABOUT.story.map(function(s){return '<p>'+s+'</p>';}).join('')+'</div>':
+  var story=ABOUT.story.length?draft(ABOUT.draft.story,'<div class="story"'+(ABOUT.draft.story?'':' data-reveal')+'>'+ABOUT.story.map(function(s){return '<p>'+blanks(s)+'</p>';}).join('')+'</div>'):
     todo('Your story',['What did you see that made you start? For example, a forwarding team keeping quotes in spreadsheets and WhatsApp, and follow-ups that slipped.',
       'Why build your own software instead of using what already existed?','What should a customer feel after a month with a CocoLabs product?',
       'Two or three short paragraphs, under 150 words.']);
@@ -295,8 +310,9 @@ function about(){
   var founder='<div class="founder" data-reveal>'+
     (f.photo?'<img class="ph" src="'+f.photo+'" alt="'+esc(f.name)+'" width="200" height="200">':'<span class="ph empty" aria-hidden="true">'+initials+'<small>Photo to add</small></span>')+
     '<div class="fr-txt"><div><h3>'+f.name+'</h3><span class="fr-role">'+f.role+'</span></div>'+
-    (f.bio?'<p>'+f.bio+'</p>':todo('About you',['Two or three lines: what you did before CocoLabs, and why you started building software for this work.',
+    (f.bio?draft(ABOUT.draft.bio,'<p>'+blanks(f.bio)+'</p>'):todo('About you',['Two or three lines: what you did before CocoLabs, and why you started building software for this work.',
       'A square photo, at least 400 × 400 pixels.','The address of your LinkedIn profile, for a link under your name.']))+
+    (f.bio&&(!f.photo||!f.linkedin)?todo('Still to add',(f.photo?[]:['A square photo, at least 400 × 400 pixels.']).concat(f.linkedin?[]:['The address of your LinkedIn profile, for a link under your name.']),'To add'):'')+
     (f.linkedin?'<a class="btn btn-ghost" href="'+f.linkedin+'" target="_blank" rel="noopener">'+parts[0]+' on LinkedIn '+ic('ext',16)+'</a>':'')+
     '</div></div>';
 
@@ -349,4 +365,4 @@ function notFound(){
 }
 
 [['privacy.html',privacy],['terms.html',terms],['company.html',company],['about.html',about],['404.html',notFound]].forEach(function(f){fs.writeFileSync(f[0],f[1]());console.log('wrote',f[0]);});
-if(aboutGaps())console.log('about.html still has '+aboutGaps()+' placeholders to fill in (ABOUT in build-products.js)');
+if(aboutGaps())console.log('about.html still has '+aboutGaps()+' drafts or placeholders to finish (ABOUT in build-products.js)');
