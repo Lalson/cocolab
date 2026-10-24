@@ -246,7 +246,7 @@ function company(){
 var ABOUT={
   // Texts drafted for the founder to edit. While a flag is true the text shows in a dashed "draft" box and
   // counts as still to do; set it to false once the words are final. [Brackets] mark blanks to fill in.
-  draft:{story:true,bio:true},
+  draft:{story:true},
   story:[  // two or three short paragraphs on why CocoLabs exists; from the founder's own account, 24 Oct 2026
     'CocoLabs started in logistics. Every shipment brings a stream of emails, WhatsApp messages and booking confirmations, '+
       'and the one detail you need is always buried somewhere in them. Keeping on top of it by hand was hard every single day, '+
@@ -256,12 +256,6 @@ var ABOUT={
     'CocoTrado does the same for buying agents who handle their clients\' money. Each product does one job, and all of them follow the same rules: '+
       'history is kept, a named person decides, and each company\'s data stays its own.'
   ],
-  founder:{name:COMPANY.board,role:'Founder and management board member, '+COMPANY.legal,
-    photo:'',     // a square picture next to the pages, at least 400 × 400 pixels
-    bio:'I lead CocoLabs and build its products together with the team. '+  // two or three lines
-      'Before CocoLabs, I [one line on your background: the industry you worked in and what you did there]. '+
-      'Most of my time goes into CocoRoute, our main product, and into talking with forwarding teams about how they work.',
-    linkedin:''}, // the personal LinkedIn profile's URL
   // [when, what, detail]; an empty when marks a date still to add
   milestones:[
     ['','CocoRoute goes live','Add the month and year the first customer started using it.'],
@@ -271,12 +265,12 @@ var ABOUT={
   ]
 };
 function aboutGaps(){
-  return (ABOUT.story.length&&!ABOUT.draft.story?0:1)+(ABOUT.founder.bio&&!ABOUT.draft.bio?0:1)+(ABOUT.founder.photo?0:1)+
+  return (ABOUT.story.length&&!ABOUT.draft.story?0:1)+
     ABOUT.milestones.filter(function(m){return !m[0];}).length;
 }
 function about(){
   function cap(w){return w.charAt(0).toUpperCase()+w.slice(1);}
-  function todo(title,asks,lab){return '<div class="todo" data-reveal><span class="todo-lab">'+(lab||'To write · in your own words')+'</span><b>'+title+'</b><ul>'+
+  function todo(title,asks){return '<div class="todo" data-reveal><span class="todo-lab">To write · in your own words</span><b>'+title+'</b><ul>'+
     asks.map(function(a){return '<li>'+a+'</li>';}).join('')+'</ul></div>';}
   function draft(on,html){return on?'<div class="draft" data-reveal><span class="todo-lab">Draft · edit before it goes live</span>'+html+'</div>':html;}
   function blanks(s){return s.replace(/\[([^\]]+)\]/g,'<mark class="blank">$1</mark>');}
@@ -306,16 +300,6 @@ function about(){
   var ruleCards='<div class="rules">'+rules.map(function(r,j){return '<div class="rule '+(r[0]?'bg-'+r[0]:'plain')+'" data-reveal style="--i:'+j+'">'+
     '<span class="n'+(r[0]?' t-'+r[0]:'')+'">0'+(j+1)+'</span><h3>'+r[1]+'</h3><p>'+r[2]+'</p></div>';}).join('')+'</div>';
 
-  var f=ABOUT.founder,parts=f.name.split(' '),initials=parts[0].charAt(0)+parts[parts.length-1].charAt(0);
-  var founder='<div class="founder" data-reveal>'+
-    (f.photo?'<img class="ph" src="'+f.photo+'" alt="'+esc(f.name)+'" width="200" height="200">':'<span class="ph empty" aria-hidden="true">'+initials+'<small>Photo to add</small></span>')+
-    '<div class="fr-txt"><div><h3>'+f.name+'</h3><span class="fr-role">'+f.role+'</span></div>'+
-    (f.bio?draft(ABOUT.draft.bio,'<p>'+blanks(f.bio)+'</p>'):todo('About you',['Two or three lines: what you did before CocoLabs, and why you started building software for this work.',
-      'A square photo, at least 400 × 400 pixels.','The address of your LinkedIn profile, for a link under your name.']))+
-    (f.bio&&(!f.photo||!f.linkedin)?todo('Still to add',(f.photo?[]:['A square photo, at least 400 × 400 pixels.']).concat(f.linkedin?[]:['The address of your LinkedIn profile, for a link under your name.']),'To add'):'')+
-    (f.linkedin?'<a class="btn btn-ghost" href="'+f.linkedin+'" target="_blank" rel="noopener">'+parts[0]+' on LinkedIn '+ic('ext',16)+'</a>':'')+
-    '</div></div>';
-
   var glance='<dl class="glance">'+[['Legal name',COMPANY.legal],['Registered',COMPANY.registered],['Registry code',COMPANY.registry],
     ['Address',COMPANY.address],['Data protection','An EU company, so the GDPR applies'],['Email',mail()]].map(function(g,j){
       return '<div data-reveal style="--i:'+j+'"><dt>'+g[0]+'</dt><dd>'+g[1]+'</dd></div>';}).join('')+'</dl>'+
@@ -341,10 +325,9 @@ function about(){
    sec('story',false,'Why we started','Why CocoLabs exists','',story)+
    sec('products',true,'What we make',cap(countWord)+' products, each for one job','Each one has its own page with the screens, the details and the questions people ask.',prods)+
    sec('principles',false,'How we build',cap(words[rules.length])+' rules every product follows','The same rules hold whatever job the product does.',ruleCards)+
-   sec('founder',true,'Who is behind it','The founder','',founder)+
-   sec('glance',false,'At a glance','The company','The basics. The full legal details are on the company page.',glance)+
-   sec('milestones',true,'Milestones','How we got here','',day)+
-   sec('follow',false,'Follow us','Follow CocoLabs','Product updates, tips and company news.',follow)+
+   sec('glance',true,'At a glance','The company','The basics. The full legal details are on the company page.',glance)+
+   sec('milestones',false,'Milestones','How we got here','',day)+
+   sec('follow',true,'Follow us','Follow CocoLabs','Product updates, tips and company news.',follow)+
    '<section class="cta-band" id="demo" data-reveal><span class="blob" aria-hidden="true"></span><div><h2>Want to see one in action?</h2>'+
     '<p>A thirty-minute demo of '+anyOf+', on your data if you like. No slides.</p></div>'+
     '<div class="ctas"><a class="btn btn-dark" href="index.html#contact">Book a demo</a><a class="btn btn-ghost" href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a></div></section>'+

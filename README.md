@@ -19,7 +19,7 @@ Any static host (Netlify, Vercel, GitHub Pages, nginx) can serve the folder as i
 | `index.html` | The home page. Self-contained: its CSS and JS are inside it. |
 | `cocoroute.html`, `cocomio.html`, `cocotrado.html` | The product pages. **Generated.** Do not edit by hand. |
 | `privacy.html`, `terms.html`, `company.html` | Privacy notice, terms of use and company details. **Generated** by `build-products.js`; edit the text there. |
-| `about.html` | The About page. **Generated** by `build-products.js`. The story, founder and milestones are in `ABOUT` there; while one is empty the page shows a dashed "to write" box, drafts flagged in `ABOUT.draft` show in a dashed "draft" box with [blanks] highlighted, and `npm run build` says how many are left. |
+| `about.html` | The About page. **Generated** by `build-products.js`. The story and milestones are in `ABOUT` there; while one is empty the page shows a dashed "to write" box, drafts flagged in `ABOUT.draft` show in a dashed "draft" box with [blanks] highlighted, and `npm run build` says how many are left. |
 | `404.html` | The page GitHub Pages shows for an address that does not exist. **Generated.** |
 | `products-data.js` | All the content of the product pages, in one place. |
 | `build-products.js` | Builds the product pages from the data: `npm run build`. |
