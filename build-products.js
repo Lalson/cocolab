@@ -1,4 +1,4 @@
-/* Builds cocoroute.html, cocomio.html, cocotrado.html, privacy.html, terms.html, company.html and 404.html
+/* Builds cocoroute.html, cocomio.html, cocotrado.html, privacy.html, terms.html, company.html, about.html and 404.html
    from products-data.js.
    Run:  node build-products.js
    The pages are static HTML (good for search engines); product.js only adds the menus, theme and animations. */
@@ -76,13 +76,13 @@ function header(k){
     '<div class="menu" id="productsMenu" hidden><span class="menu-label">OUR PRODUCTS · EACH HAS ITS OWN PAGE</span>'+
     ORDER.map(function(o){var q=PRODUCTS[o];return '<a class="menu-item'+(o===k?' now':'')+'" href="'+fileFor(o)+'"'+(o===k?' aria-current="page"':'')+'>'+logo(o,52)+'<span class="txt"><span class="name">'+q.name+' <span class="tag bg-'+o+' t-'+o+'">'+q.tag+'</span></span><span class="desc">'+q.menu+'</span></span><span class="dom t-'+o+'">'+(o===k?'You are here':'Learn more →')+'</span></a>';}).join('')+
     '<div class="menu-foot"><span>Not sure which fits?</span><a href="index.html#compare">Compare all '+countWord+' →</a></div></div></div>'+
-    '<a href="index.html#compare">Compare</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></nav>'+
+    '<a href="index.html#compare">Compare</a><a href="about.html">About</a><a href="index.html#contact">Contact</a></nav>'+
    '<div class="head-cta"><button class="daynight" id="themeBtn" type="button" role="switch" aria-checked="false" aria-label="Night mode"><span class="dn-track"><span class="dn-cloud" aria-hidden="true"></span><span class="dn-star s1" aria-hidden="true"></span><span class="dn-star s2" aria-hidden="true"></span><span class="dn-star s3" aria-hidden="true"></span><span class="dn-knob" aria-hidden="true"><span class="dn-crater c1"></span><span class="dn-crater c2"></span></span></span></button>'+
    '<a class="btn btn-dark" href="'+demoHref+'">Book a demo</a>'+
    '<button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div>'+
    '<nav class="mobile-nav" id="mobileNav" aria-label="Mobile" hidden>'+
     ORDER.map(function(o){var q=PRODUCTS[o];return '<a class="m-prod" href="'+fileFor(o)+'">'+logo(o,36)+'<span>'+q.name+'<small>'+nice(q.tag)+'</small></span></a>';}).join('')+
-    '<a href="index.html#compare">Compare the '+countWord+'</a><a href="index.html#about">About CocoLabs</a><a class="btn btn-dark" href="'+demoHref+'">Book a demo</a></nav>'+
+    '<a href="index.html#compare">Compare the '+countWord+'</a><a href="about.html">About CocoLabs</a><a class="btn btn-dark" href="'+demoHref+'">Book a demo</a></nav>'+
   '</div></header>';
 }
 /* Same columns as the footer of index.html */
@@ -99,7 +99,7 @@ function footer(){
     '<div class="foot-social">'+SOCIAL.filter(function(s){return COMPANY[s[0]];}).map(function(s){
       return '<a href="'+COMPANY[s[0]]+'" target="_blank" rel="noopener" aria-label="CocoLabs on '+s[1]+'"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="'+s[2]+'"/></svg></a>';}).join('')+'</div></div>'+
    col('Products',ORDER.map(function(o){return [PRODUCTS[o].name,fileFor(o)];}).concat([['Compare all '+countWord,'index.html#compare']]))+
-   col('Company',[['About CocoLabs','index.html#about'],['Book a demo','index.html#contact']].concat(COMPANY.linkedin?[['LinkedIn',COMPANY.linkedin,1]]:[],COMPANY.facebook?[['Facebook',COMPANY.facebook,1]]:[],COMPANY.instagram?[['Instagram',COMPANY.instagram,1]]:[]))+
+   col('Company',[['About CocoLabs','about.html'],['Book a demo','index.html#contact']].concat(COMPANY.linkedin?[['LinkedIn',COMPANY.linkedin,1]]:[],COMPANY.facebook?[['Facebook',COMPANY.facebook,1]]:[],COMPANY.instagram?[['Instagram',COMPANY.instagram,1]]:[]))+
    col('Legal',[['Company details','company.html'],['Privacy notice','privacy.html'],['Terms of use','terms.html']])+
    '</div><div class="wrap foot-base"><span>© 2026 '+COMPANY.legal+' · Registry code '+COMPANY.registry+' · '+COMPANY.address+' (EU)</span></div></footer>';
 }
@@ -241,6 +241,102 @@ function company(){
    body('route',GENERATED,null,textPage('Company details','Who is behind CocoLabs','The legal details of the company, as in the Estonian Business Register.',parts));
 }
 
+/* The About page. ABOUT holds what only the founder can write. While a field is empty the page shows a
+   dashed "to write" box in its place, and the build counts what is left: fill these in before the page goes live. */
+var ABOUT={
+  story:[],  // two or three short paragraphs on why CocoLabs exists
+  founder:{name:COMPANY.board,role:'Founder and management board member, '+COMPANY.legal,
+    photo:'',     // a square picture next to the pages, at least 400 × 400 pixels
+    bio:'',       // two or three lines
+    linkedin:''}, // the personal LinkedIn profile's URL
+  // [when, what, detail]; an empty when marks a date still to add
+  milestones:[
+    ['','CocoRoute goes live','Add the month and year the first customer started using it.'],
+    ['','CocoMio goes live','Add the month and year the first company started using it.'],
+    ['','CocoTrado goes live','Add the month and year the first client statement went out.'],
+    ['Oct 2026','CocoLabs OÜ is registered in Estonia','Entered in the Estonian Business Register in Tallinn on '+COMPANY.registered+'. The website, cocolabs.eu, goes live the same day.']
+  ]
+};
+function aboutGaps(){
+  return (ABOUT.story.length?0:1)+(ABOUT.founder.bio?0:1)+(ABOUT.founder.photo?0:1)+
+    ABOUT.milestones.filter(function(m){return !m[0];}).length;
+}
+function about(){
+  function cap(w){return w.charAt(0).toUpperCase()+w.slice(1);}
+  function todo(title,asks){return '<div class="todo" data-reveal><span class="todo-lab">To write · in your own words</span><b>'+title+'</b><ul>'+
+    asks.map(function(a){return '<li>'+a+'</li>';}).join('')+'</ul></div>';}
+  function sec(id,alt,eyebrow,h2,p,inner){return '<section class="sec'+(alt?' alt':'')+'" id="'+id+'" aria-labelledby="'+id+'-h"><div class="sec-h" data-reveal>'+
+    '<span class="eyebrow">'+eyebrow+'</span><h2 id="'+id+'-h">'+h2+'</h2>'+(p?'<p>'+p+'</p>':'')+'</div>'+inner+'</section>';}
+  var names=ORDER.map(function(o){return PRODUCTS[o].name;}),
+      anyOf=names.slice(0,-1).join(', ')+' or '+names[names.length-1];
+
+  var story=ABOUT.story.length?'<div class="story" data-reveal>'+ABOUT.story.map(function(s){return '<p>'+s+'</p>';}).join('')+'</div>':
+    todo('Your story',['What did you see that made you start? For example, a forwarding team keeping quotes in spreadsheets and WhatsApp, and follow-ups that slipped.',
+      'Why build your own software instead of using what already existed?','What should a customer feel after a month with a CocoLabs product?',
+      'Two or three short paragraphs, under 150 words.']);
+
+  // CocoRoute, listed first, is the main product and gets the wide card
+  var prods='<div class="a-prods">'+ORDER.map(function(o,j){var q=PRODUCTS[o],lead=j===0;
+    return '<a class="a-prod'+(lead?' lead':'')+'" href="'+fileFor(o)+'" data-reveal style="--i:'+j+(lead?';--lt:var(--'+o+'-tint);--ll:var(--'+o+'-line)':'')+'">'+logo(o,lead?72:56)+
+      '<span class="tag bg-'+o+' t-'+o+'">'+q.tag+'</span><h3>'+q.name+'</h3><p>'+(lead?q.lede:q.menu)+'</p>'+
+      (lead?'<span class="for">'+q.audience.map(function(a){return '<span class="pill">'+a+'</span>';}).join('')+'</span>':'')+
+      '<span class="go t-'+o+'">Learn more →</span></a>';}).join('')+'</div>';
+
+  var rules=[
+    ['route','Records you can trust','History is added to, never rewritten. Corrections stay visible, so a figure you sent last year can still be explained.'],
+    ['trado','A person approves','Software suggests; a named person decides. Every decision leaves a record.'],
+    ['mio','Your data stays yours','Each company\'s data is kept apart from every other company\'s. Nobody else\'s customers, people or money are in it.'],
+    ['','Small, focused products','Each product does one job, with its own website. They share a team, not a login.']
+  ];
+  var ruleCards='<div class="rules">'+rules.map(function(r,j){return '<div class="rule '+(r[0]?'bg-'+r[0]:'plain')+'" data-reveal style="--i:'+j+'">'+
+    '<span class="n'+(r[0]?' t-'+r[0]:'')+'">0'+(j+1)+'</span><h3>'+r[1]+'</h3><p>'+r[2]+'</p></div>';}).join('')+'</div>';
+
+  var f=ABOUT.founder,parts=f.name.split(' '),initials=parts[0].charAt(0)+parts[parts.length-1].charAt(0);
+  var founder='<div class="founder" data-reveal>'+
+    (f.photo?'<img class="ph" src="'+f.photo+'" alt="'+esc(f.name)+'" width="200" height="200">':'<span class="ph empty" aria-hidden="true">'+initials+'<small>Photo to add</small></span>')+
+    '<div class="fr-txt"><div><h3>'+f.name+'</h3><span class="fr-role">'+f.role+'</span></div>'+
+    (f.bio?'<p>'+f.bio+'</p>':todo('About you',['Two or three lines: what you did before CocoLabs, and why you started building software for this work.',
+      'A square photo, at least 400 × 400 pixels.','The address of your LinkedIn profile, for a link under your name.']))+
+    (f.linkedin?'<a class="btn btn-ghost" href="'+f.linkedin+'" target="_blank" rel="noopener">'+parts[0]+' on LinkedIn '+ic('ext',16)+'</a>':'')+
+    '</div></div>';
+
+  var glance='<dl class="glance">'+[['Legal name',COMPANY.legal],['Registered',COMPANY.registered],['Registry code',COMPANY.registry],
+    ['Address',COMPANY.address],['Data protection','An EU company, so the GDPR applies'],['Email',mail()]].map(function(g,j){
+      return '<div data-reveal style="--i:'+j+'"><dt>'+g[0]+'</dt><dd>'+g[1]+'</dd></div>';}).join('')+'</dl>'+
+    '<p class="a-more"><a href="company.html">All company details →</a></p>';
+
+  var day='<div class="day">'+ABOUT.milestones.map(function(m,j){var open=!m[0];
+    return '<div class="step'+(j%2?' flip':'')+'" data-reveal style="--i:'+j+'"><span class="t'+(open?' todo-t':'')+'">'+(m[0]||'Date to add')+'</span>'+
+      '<span class="dotm" aria-hidden="true"></span><div class="cardm'+(open?' todo-card':'')+'"><b>'+m[1]+'</b><p>'+m[2]+'</p></div></div>';}).join('')+'</div>';
+
+  var notes={linkedin:'Company news and product updates',facebook:'Tips and product news',
+    instagram:'@'+(COMPANY.instagram||'').replace(/^https:\/\/www\.instagram\.com\/|\/$/g,'')};
+  var follow='<div class="others">'+SOCIAL.filter(function(s){return COMPANY[s[0]];}).map(function(s,j){
+    return '<a class="other" href="'+COMPANY[s[0]]+'" target="_blank" rel="noopener" data-reveal style="--i:'+j+'"><span class="soc">'+
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="'+s[2]+'"/></svg></span>'+
+      '<span class="txt"><b>'+s[1]+'</b><small>'+notes[s[0]]+'</small></span><span class="go t-acc">Follow →</span></a>';}).join('')+'</div>';
+
+  var main='<main class="wrap">'+
+   '<section class="a-hero"><nav class="crumb" aria-label="Breadcrumb"><a href="index.html">CocoLabs</a> '+ic('arrow',14)+' <b aria-current="page">About</b></nav>'+
+    '<span class="eyebrow">About CocoLabs</span><h1>Software for work that has to be right.</h1>'+
+    '<p class="lede">'+COMPANY.legal+' is a software company registered in Tallinn, '+COMPANY.country+', in the European Union. We make '+countWord+
+      ' products, each for one kind of work: the freight business, people\'s attendance and careers, and clients\' money.</p>'+
+    '<div class="ctas"><a class="btn btn-dark" href="index.html#contact">Book a demo</a><a class="btn btn-ghost" href="#products">See the products</a></div></section>'+
+   sec('story',false,'Why we started','Why CocoLabs exists','',story)+
+   sec('products',true,'What we make',cap(countWord)+' products, each for one job','Each one has its own page with the screens, the details and the questions people ask.',prods)+
+   sec('principles',false,'How we build',cap(words[rules.length])+' rules every product follows','The same rules hold whatever job the product does.',ruleCards)+
+   sec('founder',true,'Who is behind it','The founder','',founder)+
+   sec('glance',false,'At a glance','The company','The basics. The full legal details are on the company page.',glance)+
+   sec('milestones',true,'Milestones','How we got here','',day)+
+   sec('follow',false,'Follow us','Follow CocoLabs','Product updates, tips and company news.',follow)+
+   '<section class="cta-band" id="demo" data-reveal><span class="blob" aria-hidden="true"></span><div><h2>Want to see one in action?</h2>'+
+    '<p>A thirty-minute demo of '+anyOf+', on your data if you like. No slides.</p></div>'+
+    '<div class="ctas"><a class="btn btn-dark" href="index.html#contact">Book a demo</a><a class="btn btn-ghost" href="mailto:'+COMPANY.email+'">'+COMPANY.email+'</a></div></section>'+
+  '</main>';
+  return head('About · CocoLabs','Why CocoLabs exists, what it makes and how it builds software. '+COMPANY.legal+' is a software company registered in Tallinn, '+COMPANY.country+'.','about')+
+   body('route',GENERATED,null,main);
+}
+
 /* Shown by GitHub Pages for any address that does not exist. It can appear at any depth
    (/old/page), so <base href="/"> makes every link and file load from the site root. */
 function notFound(){
@@ -252,4 +348,5 @@ function notFound(){
    body('route',GENERATED,null,main);
 }
 
-[['privacy.html',privacy],['terms.html',terms],['company.html',company],['404.html',notFound]].forEach(function(f){fs.writeFileSync(f[0],f[1]());console.log('wrote',f[0]);});
+[['privacy.html',privacy],['terms.html',terms],['company.html',company],['about.html',about],['404.html',notFound]].forEach(function(f){fs.writeFileSync(f[0],f[1]());console.log('wrote',f[0]);});
+if(aboutGaps())console.log('about.html still has '+aboutGaps()+' placeholders to fill in (ABOUT in build-products.js)');
