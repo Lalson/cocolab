@@ -247,14 +247,14 @@ var ABOUT={
   // Texts drafted for the founder to edit. While a flag is true the text shows in a dashed "draft" box and
   // counts as still to do; set it to false once the words are final. [Brackets] mark blanks to fill in.
   draft:{story:true,bio:true},
-  story:[  // two or three short paragraphs on why CocoLabs exists
-    'CocoLabs began with a simple question: why is the most important work in a business so often kept in the least reliable places? '+
-      'A freight quote lives in a WhatsApp chat. An employee\'s attendance lives in a paper register. A client\'s money lives in a spreadsheet only one person understands.',
-    'Each of those places works until the day it doesn\'t: a rate nobody can find, a visa that expired unnoticed, a payment one person could release alone. '+
-      'The teams we spoke to didn\'t need more software. They needed the right record, kept properly, for the one job they do every day.',
-    'So we build one product per job: CocoRoute for freight forwarders, CocoMio for HR teams and their people, and CocoTrado for buying agents. '+
-      'They follow the same rules. History is kept, a named person decides, and each company\'s data stays its own. '+
-      '[One or two sentences on what made you personally start CocoLabs.]'
+  story:[  // two or three short paragraphs on why CocoLabs exists; from the founder's own account, 24 Oct 2026
+    'CocoLabs started in logistics. Every shipment brings a stream of emails, WhatsApp messages and booking confirmations, '+
+      'and the one detail you need is always buried somewhere in them. Keeping on top of it by hand was hard every single day, '+
+      'so we decided to build a better way. That became CocoRoute.',
+    'We saw the same with staff. Attendance, leave, payroll, performance and training all matter, yet they sat in different registers, chats and spreadsheets. '+
+      'So we made one system for all of it, with its own academy where staff learn and move up. That became CocoMio.',
+    'CocoTrado does the same for buying agents who handle their clients\' money. Each product does one job, and all of them follow the same rules: '+
+      'history is kept, a named person decides, and each company\'s data stays its own.'
   ],
   founder:{name:COMPANY.board,role:'Founder and management board member, '+COMPANY.legal,
     photo:'',     // a square picture next to the pages, at least 400 × 400 pixels
