@@ -1,8 +1,9 @@
 /* CocoLabs product pages: the content of every product page lives here.
-   To add a 4th product, add one entry and its key to ORDER, then run: node build-products.js */
+   To add a 4th product, add one entry and its key to ORDER, then run: node build-products.js
+   youtube: the product's YouTube channel of demo videos; leave it out if there is none. */
 var PRODUCTS={
  route:{
-  key:'route',name:'CocoRoute',tag:'CRM FOR FREIGHT FORWARDERS',domain:'cocoroute.co',url:'https://cocoroute.co',
+  key:'route',name:'CocoRoute',tag:'CRM FOR FREIGHT FORWARDERS',domain:'cocoroute.co',url:'https://cocoroute.co',youtube:'https://www.youtube.com/@cocoroute',
   menu:'Enquiries, quotes and customers in one place, for forwarding teams.',
   h1:'Every enquiry, quote and customer in one place.',
   lede:'CocoRoute is a CRM built for forwarding sales and operations teams. Enquiries arrive, quotes go out in minutes, follow-ups happen on time, and the manager can see the whole pipeline without asking.',
@@ -51,7 +52,7 @@ var PRODUCTS={
   ]
  },
  mio:{
-  key:'mio',name:'CocoMio',tag:'HR & LEARNING APP',domain:'cocomio.co',url:'https://cocomio.co',
+  key:'mio',name:'CocoMio',tag:'HR & LEARNING APP',domain:'cocomio.co',url:'https://cocomio.co',youtube:'https://www.youtube.com/@cocomio-me',
   menu:'Attendance, leave, learning and career growth, for HR teams and employees.',
   h1:'HR, learning and careers, in one app your team actually opens.',
   lede:'CocoMio is an employee portal and career academy for companies under a hundred people. Attendance, leave and documents on one side; courses, exams and a career ladder everyone can read on the other. Built first for a shipping company in Dubai and Abu Dhabi.',

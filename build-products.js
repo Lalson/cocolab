@@ -41,7 +41,8 @@ var IC={
  check:'<path d="M5 12l4 4 10-10"/>',
  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
  chev:'<path d="M6 9l6 6 6-6"/>',
- ext:'<path d="M14 4h6v6M20 4l-9 9M18 13v6H5V6h6"/>'
+ ext:'<path d="M14 4h6v6M20 4l-9 9M18 13v6H5V6h6"/>',
+ play:'<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l4.5-2.5z"/>'
 };
 function ic(n,s){return '<svg width="'+(s||24)+'" height="'+(s||24)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[n]+'</svg>';}
 
@@ -60,6 +61,7 @@ function preview(p){
 }
 
 function nice(tag){var t=tag.toLowerCase().replace('crm','CRM').replace('hr &','HR &');return t.charAt(0).toUpperCase()+t.slice(1);}
+function watch(p,cls,label){return p.youtube?'<a class="btn '+cls+'" href="'+p.youtube+'" target="_blank" rel="noopener">'+ic('play',18)+' '+(label||'Watch demos on YouTube')+'</a>':'';}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 function logo(k,s,cls){return '<svg class="'+(cls||'logo')+'" width="'+s+'" height="'+s+'" aria-hidden="true"><use href="#logo-'+k+'"/></svg>';}
 function page(k){return k+'.html';}
@@ -134,7 +136,7 @@ function main(k){
     '<nav class="crumb" aria-label="Breadcrumb"><a href="index.html">CocoLabs</a> '+ic('arrow',14)+' <b aria-current="page">'+p.name+'</b> <span class="pill" style="margin-left:6px">Product '+(i+1)+' of '+ORDER.length+'</span></nav>'+
     logo(k,84,'plogo')+'<span class="tag bg-acc t-acc">'+p.tag+'</span>'+
     '<h1 aria-label="'+esc(p.h1)+'">'+wordsH+'</h1><p class="lede">'+p.lede+'</p>'+
-    '<div class="ctas"><a class="btn btn-dark" href="'+demo+'">Book a demo</a><a class="btn btn-acc" href="'+p.url+'" target="_blank" rel="noopener">Visit '+p.domain+' '+ic('ext',16)+'</a></div>'+
+    '<div class="ctas"><a class="btn btn-dark" href="'+demo+'">Book a demo</a><a class="btn btn-acc" href="'+p.url+'" target="_blank" rel="noopener">Visit '+p.domain+' '+ic('ext',16)+'</a>'+watch(p,'btn-ghost')+'</div>'+
     '<div class="for"><span class="lab">MADE FOR</span>'+p.audience.map(function(a){return '<span class="pill">'+a+'</span>';}).join('')+'</div></div>'+
    '<div class="preview"><div class="screen"><div class="bar"><i></i><i></i><i></i>&nbsp;'+p.name+'</div>'+preview(p)+'</div>'+
     '<span class="spark a">'+ic(p.features[0][0],22)+'</span><span class="spark b">'+ic(p.features[3][0],22)+'</span><span class="spark c">'+ic(p.features[4][0],22)+'</span></div></section>'+
@@ -160,7 +162,7 @@ function main(k){
   '<section class="sec" id="others" aria-labelledby="others-h"><div class="sec-h" data-reveal><span class="eyebrow">Also from CocoLabs</span><h2 id="others-h">The other products</h2><p>Separate products for separate jobs. They share a team, not a login.</p></div>'+
    '<div class="others">'+ORDER.filter(function(o){return o!==k;}).map(function(o,j){var q=PRODUCTS[o];return '<a class="other" href="'+fileFor(o)+'" data-reveal style="--i:'+j+'">'+logo(o,52)+'<span class="txt"><b>'+q.name+'</b><small>'+q.menu+'</small></span><span class="go t-'+o+'">Learn more →</span></a>';}).join('')+'</div></section>'+
 
-  '<section class="cta-band" id="demo" data-reveal><span class="blob" aria-hidden="true"></span><div><h2>See '+p.name+' with your own work in it.</h2><p>A thirty-minute demo, on your data if you like. No slides.</p></div><div class="ctas"><a class="btn btn-dark" href="'+demo+'">Book a demo</a><a class="btn btn-ghost" href="'+p.url+'" target="_blank" rel="noopener">Visit '+p.domain+' '+ic('ext',16)+'</a></div></section>'+
+  '<section class="cta-band" id="demo" data-reveal><span class="blob" aria-hidden="true"></span><div><h2>See '+p.name+' with your own work in it.</h2><p>A thirty-minute demo, on your data if you like. No slides.</p></div><div class="ctas"><a class="btn btn-dark" href="'+demo+'">Book a demo</a><a class="btn btn-ghost" href="'+p.url+'" target="_blank" rel="noopener">Visit '+p.domain+' '+ic('ext',16)+'</a>'+watch(p,'btn-ghost')+'</div></section>'+
   '</main>';
 }
 
@@ -282,6 +284,9 @@ function about(){
       '<span class="tag bg-'+o+' t-'+o+'">'+q.tag+'</span><h3>'+q.name+'</h3><p>'+(lead?q.lede:q.menu)+'</p>'+
       (lead?'<span class="for">'+q.audience.map(function(a){return '<span class="pill">'+a+'</span>';}).join('')+'</span>':'')+
       '<span class="go t-'+o+'">Learn more →</span></a>';}).join('')+'</div>';
+  var demos=ORDER.filter(function(o){return PRODUCTS[o].youtube;});
+  if(demos.length)prods+='<div class="a-demos" data-reveal><span>Prefer to watch first?</span>'+
+    demos.map(function(o){return watch(PRODUCTS[o],'btn-ghost',PRODUCTS[o].name+' demos on YouTube');}).join('')+'</div>';
 
   var rules=[
     ['route','Records you can trust','History is added to, never rewritten. Corrections stay visible, so a figure you sent last year can still be explained.'],
