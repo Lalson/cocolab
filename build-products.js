@@ -227,7 +227,6 @@ function company(){
     ['Legal name',COMPANY.legal+' (private limited company)'],
     ['Registry code',COMPANY.registry],
     ['EU identifier (EUID)',COMPANY.euid],
-    ['Registered','In the Estonian Business Register on '+COMPANY.registered],
     ['Registered address',COMPANY.address],
     ['Management board',COMPANY.board],
     ['VAT','Not registered for VAT'],
@@ -297,9 +296,9 @@ function about(){
   var ruleCards='<div class="rules">'+rules.map(function(r,j){return '<div class="rule '+(r[0]?'bg-'+r[0]:'plain')+'" data-reveal style="--i:'+j+'">'+
     '<span class="n'+(r[0]?' t-'+r[0]:'')+'">0'+(j+1)+'</span><h3>'+r[1]+'</h3><p>'+r[2]+'</p></div>';}).join('')+'</div>';
 
-  var glance='<dl class="glance">'+[['Legal name',COMPANY.legal],['Registered',COMPANY.registered],['Registry code',COMPANY.registry],
-    ['Address',COMPANY.address],['Data protection','An EU company, so the GDPR applies'],['Email',mail()]].map(function(g,j){
-      return '<div data-reveal style="--i:'+j+'"><dt>'+g[0]+'</dt><dd>'+g[1]+'</dd></div>';}).join('')+'</dl>'+
+  var glance='<dl class="glance">'+[['Legal name',COMPANY.legal],['Registry code',COMPANY.registry],['Email',mail()],
+    ['Address',COMPANY.address,'wide'],['Data protection','An EU company, so the GDPR applies']].map(function(g,j){
+      return '<div'+(g[2]?' class="'+g[2]+'"':'')+' data-reveal style="--i:'+j+'"><dt>'+g[0]+'</dt><dd>'+g[1]+'</dd></div>';}).join('')+'</dl>'+
     '<p class="a-more"><a href="company.html">All company details →</a></p>';
 
   var notes={linkedin:'Company news and product updates',facebook:'Tips and product news',

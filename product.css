@@ -297,11 +297,12 @@ mark.blank{background:var(--warn-tint);color:var(--warn);font-weight:700;padding
 .glance dt{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .glance dd{margin:0;font-family:var(--display);font-size:19px;font-weight:600;line-height:1.3}
 .glance a{text-decoration:underline}
+.glance .wide{grid-column:span 2}
 .a-more{margin-top:18px;font-weight:800}
 .a-more a:hover{text-decoration:underline}
 .other .soc{width:52px;height:52px;flex-shrink:0;border-radius:16px;display:grid;place-items:center;background:var(--chip);color:var(--ink)}
 @media (max-width: 860px){.glance{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width: 700px){.a-prods{grid-template-columns:1fr}.glance{grid-template-columns:1fr}}
+@media (max-width: 700px){.a-prods{grid-template-columns:1fr}.glance{grid-template-columns:1fr}.glance .wide{grid-column:auto}}
 
 /* Footer (same as the main site) */
 .site-foot{border-top:2px solid var(--line);padding-block:48px 32px;font-size:15px;color:var(--muted)}
