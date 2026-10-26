@@ -60,4 +60,4 @@ While `FORM_KEY` is empty, or if sending fails, the form opens the visitor's ema
 3. On the home page, copy one product block in the five places listed in the comment at the top of `<main>` in `index.html`.
 4. Run `npm run build`.
 
-Everything count-based ("Four products. One team.", "PRODUCT 2 OF 4", the tile layout) updates itself.
+Everything count-based ("Compare all four", "PRODUCT 2 OF 4", the tile layout) updates itself.

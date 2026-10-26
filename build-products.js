@@ -116,7 +116,7 @@ function head(title,desc,path,extra){
    '<meta property="og:type" content="website">\n<meta property="og:site_name" content="CocoLabs">\n'+
    '<meta property="og:title" content="'+esc(title)+'">\n<meta property="og:description" content="'+esc(desc)+'">\n'+(url?'<meta property="og:url" content="'+url+'">\n':'')+
    '<meta property="og:image" content="'+COMPANY.site+'/og-image.png">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'+
-   '<meta property="og:image:alt" content="CocoLabs: three products, one team">\n<meta name="twitter:card" content="summary_large_image">\n'+
+   '<meta property="og:image:alt" content="CocoLabs: focused products, one team">\n<meta name="twitter:card" content="summary_large_image">\n'+
    '<link rel="icon" href="logo.svg" type="image/svg+xml">\n<link rel="apple-touch-icon" href="apple-touch-icon.png">\n'+
    '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap">\n'+
