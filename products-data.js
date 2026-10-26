@@ -104,7 +104,7 @@ var PRODUCTS={
   ]
  },
  trado:{
-  key:'trado',name:'CocoTrado',tag:'TRADING ACCOUNTS',domain:'cocotrado.com',url:'https://cocotrado.com',
+  key:'trado',name:'CocoTrado',tag:'TRADING ACCOUNTS',domain:'cocotrado.com',url:'https://cocotrado.com',youtube:'https://www.youtube.com/@cocotrado',
   menu:'Client money per currency and two-signature payments, for buying agents.',
   h1:'Prove how much of your client’s money is left, in every currency.',
   lede:'CocoTrado is for agents who buy goods on behalf of a client with the client’s money. It keeps one ledger per client per currency, needs two signatures to pay a supplier, and prints the statement your client actually reads.',
