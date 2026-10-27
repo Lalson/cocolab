@@ -199,6 +199,25 @@ thead th:first-child{background:var(--panel)}
 .value{padding:24px;border-radius:28px;display:flex;flex-direction:column;gap:8px}
 .value h3{font-size:22px}
 .value p{font-size:15px;color:var(--muted)}
+/* Built for you: custom software, three steps */
+.build{padding:clamp(32px,5vw,60px);border-radius:40px;background:linear-gradient(135deg,var(--route-tint),var(--trado-tint) 55%,var(--mio-tint));border:2px solid var(--line)}
+.build-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;max-width:760px;margin:0 auto 40px}
+.build-head h2{font-size:clamp(32px,3.8vw,48px)}
+.build-head p{color:var(--muted);font-size:18px}
+.build-steps{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.build-steps::before{content:"";position:absolute;left:12%;right:12%;top:38px;border-top:3px dashed var(--route-line)}
+.build-step{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:0 24px 26px;border-radius:28px;background:var(--card);box-shadow:0 24px 48px -30px var(--shadow);transition:transform .25s var(--bounce)}
+.build-step:hover{transform:translateY(-6px)}
+.build-step .n{width:76px;height:76px;border-radius:24px;display:grid;place-items:center;color:#fff;font-family:var(--display);font-size:30px;font-weight:700;transform:translateY(-22px);box-shadow:0 6px 0 rgba(0,0,0,.15)}
+.build-step h3{font-size:22px;margin-top:-10px}
+.build-step p{color:var(--muted);font-size:15px}
+.build-ideas{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:34px 0 0;padding:0;list-style:none}
+.build-ideas li{padding:8px 14px;border-radius:99px;background:var(--card);border:2px solid var(--line);font-size:14px;font-weight:700}
+.build-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:30px;padding:22px 26px;border-radius:24px;background:var(--night);color:#fff}
+.build-cta b{font-family:var(--display);font-size:24px;font-weight:700}
+.build-cta span{display:block;color:var(--night-sub);font-size:15px}
+.build-cta .btn{background:#FFD27A;color:#2A2438;box-shadow:0 4px 0 #C99A3B}
+@media (max-width: 900px){.build-steps{grid-template-columns:1fr;gap:34px}.build-steps::before{display:none}}
 
 /* Contact: the card's colours are the --c-* tokens, with a night set below */
 .contact{--c-bg:linear-gradient(135deg,#E3F4FF,#F1ECFF);--c-sub:var(--muted);--c-chip:rgba(255,255,255,.75);--c-edge:#CBE0F5;--c-ok:var(--mio-text);
@@ -760,6 +779,25 @@ body{transition:background-color .6s ease,color .6s ease}
     </div>
   </section>
 
+  <section class="wrap section" id="build" aria-labelledby="build-h">
+    <div class="build">
+      <div data-reveal class="build-head">
+        <span class="pill">Built for you</span>
+        <h2 id="build-h">Have a job our products don't cover? We'll build it with you.</h2>
+        <p>Beyond our own products, we design and build software for companies whose work doesn't fit an off-the-shelf tool. Same team, same rules: records you can trust, a person approves, your data stays yours.</p>
+      </div>
+      <div class="build-steps">
+        <div data-reveal class="build-step"><span class="n" style="background:var(--route)">1</span><h3>Tell us the problem</h3><p>A short call about how the work is done today and what gets in the way.</p></div>
+        <div data-reveal style="--i:1" class="build-step"><span class="n" style="background:var(--trado)">2</span><h3>We sketch the solution</h3><p>A plan in plain words and screens you can react to before anything is built.</p></div>
+        <div data-reveal style="--i:2" class="build-step"><span class="n" style="background:var(--mio)">3</span><h3>We build it with you</h3><p>In small steps you can try as we go, until it fits how your team works.</p></div>
+      </div>
+      <ul class="build-ideas" aria-label="What we can build">
+        <li>Internal tools</li><li>Customer portals</li><li>Approvals &amp; workflows</li><li>Dashboards &amp; reports</li><li>Connecting your tools</li><li>Phone-first apps</li>
+      </ul>
+      <div data-reveal class="build-cta"><div><b>Have an idea? Tell us about it.</b><span>We reply within one working day.</span></div><a class="btn" href="#contact" data-product="Custom software">Start a conversation →</a></div>
+    </div>
+  </section>
+
   <section class="wrap section" id="about" aria-labelledby="about-h">
     <div class="about">
       <div data-reveal class="about-lead">
@@ -789,7 +827,7 @@ body{transition:background-color .6s ease,color .6s ease}
         <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
         <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization"></div>
         <div class="field"><label for="f-product">Product</label>
-          <select id="f-product" name="product"><option>Not sure yet</option><option>CocoRoute</option><option>CocoMio</option><option>CocoTrado</option></select>
+          <select id="f-product" name="product"><option>Not sure yet</option><option>CocoRoute</option><option>CocoMio</option><option>CocoTrado</option><option>Custom software</option></select>
         </div>
         <div class="field full"><label for="f-msg">What would you like to see?</label><textarea id="f-msg" name="message"></textarea></div>
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
